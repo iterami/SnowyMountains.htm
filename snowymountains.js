@@ -1,4 +1,5 @@
 function draw(){
+    /*draws over previous canvas frame, thereby clearing it too*/
     canvas.drawImage(get('buffer'),0,0);
 
     /*add 2 randomly placed snowflakes*/
@@ -6,11 +7,11 @@ function draw(){
     i = 1;
     do{
         snowflakes.push([
-        	random_number(width),
-        	0,
-        	flake_size,
-        	flake_size,
-        	random_number(4)
+            random_number(width),
+            0,
+            flake_size,
+            flake_size,
+            random_number(4)
         ])
     }while(i--);
 
@@ -81,7 +82,9 @@ function update_background(){
         ])
     }while(i--);
     /*sort trees so closer trees are drawn on top*/
-    trees.sort(function(i,n){return parseFloat(n[2])-parseFloat(i[2])});
+    trees.sort(function(i,n){
+        return parseFloat(n[2])-parseFloat(i[2])
+    });
 
     buffer.clearRect(0,0,width,height);
 
@@ -142,7 +145,7 @@ function update_background(){
     /*draw wreathe on top of closest tree*/
     i=1;
     do{
-        buffer.fillStyle=[
+        buffer.fillStyle = [
             trees[0][3],
             '#0d0'
         ][i];
