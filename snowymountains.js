@@ -132,13 +132,21 @@ function update_background(){
 
     /*draw mountains with gradient fillstyle*/
     i = 2;
-    j = y*.25;
-    k = y*.3;
+    j = y * .25;
+    k = y * .3;
     buffer.beginPath();
     do{
         buffer.moveTo(
-            [x,math[2],math[4]][i],
-            [math[3],j,k][i]
+            [
+                x,
+                math[2],
+                math[4]
+            ][i],
+            [
+                math[3],
+                j,
+                k
+            ][i]
         );
         buffer.lineTo(
             ([x,math[2],math[4]][i]) + ([math[6],math[7],math[6]][i]),
@@ -161,7 +169,7 @@ function update_background(){
     buffer.fill();
 
     /*draw tree trunks*/
-    i = trees.length-1;
+    i = trees.length - 1;
     buffer.fillStyle = '#930';
     do{
         buffer.fillRect(
@@ -173,7 +181,7 @@ function update_background(){
     }while(i--);
 
     /*draw tree leaves*/
-    i = trees.length-1;
+    i = trees.length - 1;
     do{
         buffer.beginPath();
         buffer.moveTo(
@@ -194,7 +202,7 @@ function update_background(){
     }while(i--);
 
     /*draw wreathe on top of closest tree*/
-    i=1;
+    i = 1;
     do{
         buffer.fillStyle = [
             trees[0][3],
