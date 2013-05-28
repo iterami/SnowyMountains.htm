@@ -11,11 +11,11 @@ function draw(){
     i = 1;
     do{
         snowflakes.push([
-            random_number(width),
-            0,
-            flake_size,
-            flake_size,
-            random_number(4)
+            random_number(width),/*x*/
+            0,/*y*/
+            flake_size,/*width*/
+            flake_size,/*height*/
+            random_number(4)/*y speed*/
         ])
     }while(i--);
 
@@ -39,13 +39,6 @@ function draw(){
             )
         }
     }while(i--)
-}
-
-function gradient(a,c,e,f,k,l){
-    i = buffer.createLinearGradient(a,c,e,f);
-    i.addColorStop(0,k);
-    i.addColorStop(1,l);
-    return i
 }
 
 function get(i){
@@ -103,14 +96,15 @@ function update_background(){
     );
 
     /*draw sky gradient*/
-    buffer.fillStyle = gradient(
+    i = buffer.createLinearGradient(
         x,
         10,
         x,
-        y,
-        '#ccc',
-        '#003'
+        y
     );
+    i.addColorStop(0,'#ccc');
+    i.addColorStop(1,'#003');
+    buffer.fillStyle = i;
     buffer.fillRect(
         0,
         0,
@@ -158,14 +152,15 @@ function update_background(){
         )
     }while(i--);
     buffer.closePath();
-    buffer.fillStyle = gradient(
+    i = buffer.createLinearGradient(
         x,
         math[3],
         x,
-        y * .65,
-        '#eee',
-        '#730'
+        y * .65
     );
+    i.addColorStop(0,'#eee');
+    i.addColorStop(1,'#730');
+    buffer.fillStyle = i;
     buffer.fill();
 
     /*draw tree trunks*/
