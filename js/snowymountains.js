@@ -1,52 +1,53 @@
 function draw(){
-    /*draws over previous canvas frame, thereby clearing it too*/
+    /* draws over previous canvas frame, thereby clearing it too */
     canvas.drawImage(
         get('buffer'),
         0,
         0
     );
 
-    /*add 2 randomly placed snowflakes*/
+    /* add 2 randomly placed snowflakes */
     flake_size = random_number(3) + 3;
     i = 1;
     do{
         snowflakes.push([
-            random_number(width),/*x*/
-            0,/*y*/
-            flake_size,/*width*/
-            flake_size,/*height*/
-            random_number(4)/*y speed*/
-        ])
+            random_number(width),/* x */
+            0,/* y */
+            flake_size,/* width */
+            flake_size,/* height */
+            random_number(4)/* y speed */
+        ]);
     }while(i--);
 
     i = snowflakes.length - 1;
     canvas.fillStyle = '#fff';
     do{
         if(snowflakes[i][1] > height){
-            /*remove snowflake that reached bottom of screen*/
-            snowflakes.splice(i,1)
+            /* remove snowflake that reached bottom of screen */
+            snowflakes.splice(i, 1);
+
         }else{
-            /*update snowflake position*/
+            /* update snowflake position */
             snowflakes[i][0] += Math.random() * 2 - 1;
             snowflakes[i][1] += Math.random() * 4 + snowflakes[i][4];
 
-            /*draw snowflake*/
+            /* draw snowflake */
             canvas.fillRect(
                 snowflakes[i][0],
                 snowflakes[i][1],
                 snowflakes[i][2],
                 snowflakes[i][3]
-            )
+            );
         }
-    }while(i--)
+    }while(i--);
 }
 
 function get(i){
-    return document.getElementById(i)
+    return document.getElementById(i);
 }
 
 function random_number(i){
-    return Math.floor(Math.random() * i)
+    return Math.floor(Math.random() * i);
 }
 
 function resize(){
@@ -56,36 +57,47 @@ function resize(){
     x = width / 2;
     y = height / 2;
 
-    update_background()
+    update_background();
 }
 
 function update_background(){
     a = y * .75;
     k = y * .35;
     var j = 0;
-    var math = [0,0,0,0,0,0,0];
+    var math = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
     var trees = [];
 
-    /*create 300 trees*/
+    /* create 300 trees */
     i = 299;
     do{
         if(i > 200){
-            j = random_number(y * 1.1) + a
+            j = random_number(y * 1.1) + a;
+
         }else if(i > 10){
-            j = random_number(y * .7) + a
+            j = random_number(y * .7) + a;
+
         }else{
-            j = random_number(y * .2) + a
+            j = random_number(y * .2) + a;
         }
         trees.push([
             Math.random(),
             j,
             -(y / 2 - j) / k,
             '#' + random_number(5) + (random_number(5) + 4) + random_number(5)
-        ])
+        ]);
     }while(i--);
-    /*sort trees so closer trees are drawn on top*/
+
+    /* sort trees so closer trees are drawn on top */
     trees.sort(function(i,n){
-        return parseFloat(n[2]) - parseFloat(i[2])
+        return parseFloat(n[2]) - parseFloat(i[2]);
     });
 
     buffer.clearRect(
@@ -95,15 +107,15 @@ function update_background(){
         height
     );
 
-    /*draw sky gradient*/
+    /* draw sky gradient */
     i = buffer.createLinearGradient(
         x,
         10,
         x,
         y
     );
-    i.addColorStop(0,'#ccc');
-    i.addColorStop(1,'#003');
+    i.addColorStop(0, '#ccc');
+    i.addColorStop(1, '#003');
     buffer.fillStyle = i;
     buffer.fillRect(
         0,
@@ -112,7 +124,7 @@ function update_background(){
         y
     );
 
-    /*precalculate stuff*/
+    /* precalculate stuff */
     math = [
         width / 100,
         width / 45,
@@ -124,7 +136,7 @@ function update_background(){
         x * .7
     ];
 
-    /*draw mountains with gradient fillstyle*/
+    /* draw mountains with gradient fillstyle */
     i = 2;
     j = y * .25;
     k = y * .3;
@@ -143,27 +155,45 @@ function update_background(){
             ][i]
         );
         buffer.lineTo(
-            ([x,math[2],math[4]][i]) + ([math[6],math[7],math[6]][i]),
+            ([
+                x,
+                math[2],
+                math[4]
+            ][i]) + ([
+                math[6],
+                math[7],
+                math[6]
+            ][i]),
             y
         );
         buffer.lineTo(
-            ([x,0,math[4]][i]) - ([math[7],math[7],math[6]][i]),
+            ([
+                x,
+                0,
+                math[4]
+            ][i]) - ([
+                math[7],
+                math[7],
+                math[6]
+            ][i]),
             y
-        )
+        );
     }while(i--);
     buffer.closePath();
+
+    /* draw ground gardient */
     i = buffer.createLinearGradient(
         x,
         math[3],
         x,
         y * .65
     );
-    i.addColorStop(0,'#eee');
-    i.addColorStop(1,'#730');
+    i.addColorStop(0, '#eee');
+    i.addColorStop(1, '#730');
     buffer.fillStyle = i;
     buffer.fill();
 
-    /*draw tree trunks*/
+    /* draw tree trunks */
     i = trees.length - 1;
     buffer.fillStyle = '#930';
     do{
@@ -172,10 +202,10 @@ function update_background(){
             trees[i][1],
             math[0] * trees[i][2],
             math[0] * trees[i][2]
-        )
+        );
     }while(i--);
 
-    /*draw tree leaves*/
+    /* draw tree leaves */
     i = trees.length - 1;
     do{
         buffer.beginPath();
@@ -193,10 +223,10 @@ function update_background(){
         );
         buffer.closePath();
         buffer.fillStyle = trees[i][3];
-        buffer.fill()
+        buffer.fill();
     }while(i--);
 
-    /*draw wreathe on top of closest tree*/
+    /* draw wreathe on top of closest tree */
     i = 1;
     do{
         buffer.fillStyle = [
@@ -213,34 +243,34 @@ function update_background(){
             false
         );
         buffer.closePath();
-        buffer.fill()
+        buffer.fill();
     }while(i--);
 
-    /*draw red ornaments on top of wreathe*/
+    /* draw red ornaments on top of wreathe */
     buffer.fillStyle = '#f00';
     i = 7;
     buffer.beginPath();
     do{
         buffer.arc(
-            width * trees[0][0] + math[5] * ([-3.5,-2.5,0,2.5,3.5,2.5,0,-2.5][i]),
-            trees[0][1] - (height / 7) + math[5] * ([0,-2.5,-3.5,-2.5,0,2.5,3.5,2.5][i]),
+            width * trees[0][0] + math[5] * ([-3.5, -2.5, 0, 2.5, 3.5, 2.5, 0, -2.5][i]),
+            trees[0][1] - (height / 7) + math[5] * ([0, -2.5, -3.5, -2.5, 0, 2.5, 3.5, 2.5][i]),
             math[5],
             0,
             Math.PI * 2,
             false
-        )
+        );
     }while(i--);
     buffer.closePath();
     buffer.fill();
 
-    /*draw 'Merry Christmas!' in Czech*/
+    /* draw 'Merry Christmas!' in Czech */
     buffer.fillStyle = '#090';
     buffer.font = '42pt sans-serif';
     buffer.fillText(
         'Veselé Vánoce!',
         5,
         47
-    )
+    );
 }
 
 var a = 0;
@@ -257,6 +287,6 @@ var y = 0;
 
 resize();
 
-setInterval('draw()',35);
+setInterval('draw()', 35);
 
-window.onresize = resize
+window.onresize = resize;
