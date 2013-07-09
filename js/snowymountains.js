@@ -51,8 +51,13 @@ function random_number(i){
 }
 
 function resize(){
-    width = get('buffer').width = get('canvas').width = window.innerWidth;
-    height = get('buffer').height = get('canvas').height = window.innerHeight;
+    width = window.innerWidth;
+    get('buffer').width = width;
+    get('canvas').width = width;
+
+    height = window.innerHeight;
+    get('buffer').height = height;
+    get('canvas').height = height;
 
     x = width / 2;
     y = height / 2;
