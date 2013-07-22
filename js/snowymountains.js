@@ -92,11 +92,14 @@ function update_background(){
         }else{
             j = random_number(y * .2) + a;
         }
+
         trees.push([
             Math.random(),
             j,
             -(y / 2 - j) / k,
-            '#' + random_number(5) + (random_number(5) + 4) + random_number(5)
+            '#' + random_number(5)
+                + (random_number(5) + 4)
+                + random_number(5)
         ]);
     }while(i--);
 
@@ -160,27 +163,31 @@ function update_background(){
             ][i]
         );
         buffer.lineTo(
-            ([
-                x,
-                math[2],
-                math[4]
-            ][i]) + ([
-                math[6],
-                math[7],
+            (
+                [
+                    x,
+                    math[2],
+                    math[4]
+                ][i]) + ([
+                    math[6],
+                    math[7],
                 math[6]
-            ][i]),
+                ][i]
+            ),
             y
         );
         buffer.lineTo(
-            ([
-                x,
-                0,
-                math[4]
-            ][i]) - ([
-                math[7],
-                math[7],
-                math[6]
-            ][i]),
+            (
+                [
+                    x,
+                    0,
+                    math[4]
+                ][i]) - ([
+                    math[7],
+                    math[7],
+                    math[6]
+                ][i]
+            ),
             y
         );
     }while(i--);
@@ -257,8 +264,30 @@ function update_background(){
     buffer.beginPath();
     do{
         buffer.arc(
-            width * trees[0][0] + math[5] * ([-3.5, -2.5, 0, 2.5, 3.5, 2.5, 0, -2.5][i]),
-            trees[0][1] - (height / 7) + math[5] * ([0, -2.5, -3.5, -2.5, 0, 2.5, 3.5, 2.5][i]),
+            width * trees[0][0] + math[5] * (
+                [
+                    -3.5,
+                    -2.5,
+                    0,
+                    2.5,
+                    3.5,
+                    2.5,
+                    0,
+                    -2.5
+                ][i]
+            ),
+            trees[0][1] - (height / 7) + math[5] * (
+                [
+                    0,
+                    -2.5,
+                    -3.5,
+                    -2.5,
+                    0,
+                    2.5,
+                    3.5,
+                    2.5
+                ][i]
+            ),
             math[5],
             0,
             Math.PI * 2,
