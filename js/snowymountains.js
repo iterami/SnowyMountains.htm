@@ -261,8 +261,8 @@ function update_background(){
     // draw red ornaments on top of wreathe
     buffer.fillStyle = '#f00';
     i = 7;
-    buffer.beginPath();
     do{
+        buffer.beginPath();
         buffer.arc(
             width * trees[0][0] + math[5] * (
                 [
@@ -293,9 +293,9 @@ function update_background(){
             Math.PI * 2,
             false
         );
+        buffer.closePath();
+        buffer.fill();
     }while(i--);
-    buffer.closePath();
-    buffer.fill();
 
     // draw 'Merry Christmas!' in Czech
     buffer.fillStyle = '#090';
