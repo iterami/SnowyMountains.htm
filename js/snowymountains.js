@@ -1,9 +1,9 @@
 function draw(){
     // draws over previous canvas frame, thereby clearing it too
     canvas.drawImage(
-        get('buffer'),
-        0,
-        0
+      document.getElementById('buffer'),
+      0,
+      0
     );
 
     // add 2 randomly placed snowflakes
@@ -11,11 +11,11 @@ function draw(){
     i = 1;
     do{
         snowflakes.push([
-            random_number(width),// x
-            0,// y
-            flake_size,// width
-            flake_size,// height
-            random_number(4)// y speed
+          random_number(width),// x
+          0,// y
+          flake_size,// width
+          flake_size,// height
+          random_number(4)// y speed
         ]);
     }while(i--);
 
@@ -33,17 +33,13 @@ function draw(){
 
             // draw snowflake
             canvas.fillRect(
-                snowflakes[i][0],
-                snowflakes[i][1],
-                snowflakes[i][2],
-                snowflakes[i][3]
+              snowflakes[i][0],
+              snowflakes[i][1],
+              snowflakes[i][2],
+              snowflakes[i][3]
             );
         }
     }while(i--);
-}
-
-function get(i){
-    return document.getElementById(i);
 }
 
 function random_number(i){
@@ -52,12 +48,12 @@ function random_number(i){
 
 function resize(){
     width = window.innerWidth;
-    get('buffer').width = width;
-    get('canvas').width = width;
+    document.getElementById('buffer').width = width;
+    document.getElementById('canvas').width = width;
 
     height = window.innerHeight;
-    get('buffer').height = height;
-    get('canvas').height = height;
+    document.getElementById('buffer').height = height;
+    document.getElementById('canvas').height = height;
 
     x = width / 2;
     y = height / 2;
@@ -70,13 +66,13 @@ function update_background(){
     k = y * .35;
     var j = 0;
     var math = [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ];
     var trees = [];
 
@@ -94,12 +90,12 @@ function update_background(){
         }
 
         trees.push([
-            Math.random(),
-            j,
-            -(y / 2 - j) / k,
-            '#' + random_number(5)
-                + (random_number(5) + 4)
-                + random_number(5)
+          Math.random(),
+          j,
+          -(y / 2 - j) / k,
+          '#' + random_number(5)
+            + (random_number(5) + 4)
+            + random_number(5)
         ]);
     }while(i--);
 
@@ -109,39 +105,39 @@ function update_background(){
     });
 
     buffer.clearRect(
-        0,
-        0,
-        width,
-        height
+      0,
+      0,
+      width,
+      height
     );
 
     // draw sky gradient
     i = buffer.createLinearGradient(
-        x,
-        10,
-        x,
-        y
+      x,
+      10,
+      x,
+      y
     );
     i.addColorStop(0, '#ccc');
     i.addColorStop(1, '#003');
     buffer.fillStyle = i;
     buffer.fillRect(
-        0,
-        0,
-        width,
-        y
+      0,
+      0,
+      width,
+      y
     );
 
     // precalculate stuff
     math = [
-        width / 100,
-        width / 45,
-        x * .4,
-        y * .4,
-        x * 1.6,
-        height / 100,
-        x * .9,
-        x * .7
+      width / 100,
+      width / 45,
+      x * .4,
+      y * .4,
+      x * 1.6,
+      height / 100,
+      x * .9,
+      x * .7
     ];
 
     // draw mountains with gradient fillstyle
@@ -151,54 +147,54 @@ function update_background(){
     buffer.beginPath();
     do{
         buffer.moveTo(
+          [
+            x,
+            math[2],
+            math[4]
+          ][i],
+          [
+            math[3],
+            j,
+            k
+          ][i]
+        );
+        buffer.lineTo(
+          (
             [
-                x,
-                math[2],
-                math[4]
-            ][i],
-            [
-                math[3],
-                j,
-                k
+              x,
+              math[2],
+              math[4]
+            ][i]) + ([
+              math[6],
+              math[7],
+              math[6]
             ][i]
+          ),
+          y
         );
         buffer.lineTo(
-            (
-                [
-                    x,
-                    math[2],
-                    math[4]
-                ][i]) + ([
-                    math[6],
-                    math[7],
-                math[6]
-                ][i]
-            ),
-            y
-        );
-        buffer.lineTo(
-            (
-                [
-                    x,
-                    0,
-                    math[4]
-                ][i]) - ([
-                    math[7],
-                    math[7],
-                    math[6]
-                ][i]
-            ),
-            y
+          (
+            [
+              x,
+              0,
+              math[4]
+            ][i]) - ([
+              math[7],
+              math[7],
+              math[6]
+            ][i]
+          ),
+          y
         );
     }while(i--);
     buffer.closePath();
 
     // draw ground gardient
     i = buffer.createLinearGradient(
-        x,
-        math[3],
-        x,
-        y * .65
+      x,
+      math[3],
+      x,
+      y * .65
     );
     i.addColorStop(0, '#eee');
     i.addColorStop(1, '#730');
@@ -210,10 +206,10 @@ function update_background(){
     buffer.fillStyle = '#930';
     do{
         buffer.fillRect(
-            width * trees[i][0] - math[0] * 2,
-            trees[i][1],
-            math[0] * trees[i][2],
-            math[0] * trees[i][2]
+          width * trees[i][0] - math[0] * 2,
+          trees[i][1],
+          math[0] * trees[i][2],
+          math[0] * trees[i][2]
         );
     }while(i--);
 
@@ -222,16 +218,16 @@ function update_background(){
     do{
         buffer.beginPath();
         buffer.moveTo(
-            width * trees[i][0],
-            trees[i][1] - (height / 7) * trees[i][2]
+          width * trees[i][0],
+          trees[i][1] - (height / 7) * trees[i][2]
         );
         buffer.lineTo(
-            width * trees[i][0] + math[1] * trees[i][2],
-            trees[i][1] + 1
+          width * trees[i][0] + math[1] * trees[i][2],
+          trees[i][1] + 1
         );
         buffer.lineTo(
-            width * trees[i][0] - math[1] * trees[i][2],
-            trees[i][1] + 1
+          width * trees[i][0] - math[1] * trees[i][2],
+          trees[i][1] + 1
         );
         buffer.closePath();
         buffer.fillStyle = trees[i][3];
@@ -242,17 +238,17 @@ function update_background(){
     i = 1;
     do{
         buffer.fillStyle = [
-            trees[0][3],
-            '#0d0'
+          trees[0][3],
+          '#0d0'
         ][i];
         buffer.beginPath();
         buffer.arc(
-            width * trees[0][0],
-            trees[0][1] - (height / 7),
-            height / (40 - 20 * i),
-            0,
-            Math.PI * 2,
-            false
+          width * trees[0][0],
+          trees[0][1] - (height / 7),
+          height / (40 - 20 * i),
+          0,
+          Math.PI * 2,
+          false
         );
         buffer.closePath();
         buffer.fill();
@@ -264,34 +260,34 @@ function update_background(){
     do{
         buffer.beginPath();
         buffer.arc(
-            width * trees[0][0] + math[5] * (
-                [
-                    -3.5,
-                    -2.5,
-                    0,
-                    2.5,
-                    3.5,
-                    2.5,
-                    0,
-                    -2.5
-                ][i]
-            ),
-            trees[0][1] - (height / 7) + math[5] * (
-                [
-                    0,
-                    -2.5,
-                    -3.5,
-                    -2.5,
-                    0,
-                    2.5,
-                    3.5,
-                    2.5
-                ][i]
-            ),
-            math[5],
-            0,
-            Math.PI * 2,
-            false
+          width * trees[0][0] + math[5] * (
+            [
+              -3.5,
+              -2.5,
+              0,
+              2.5,
+              3.5,
+              2.5,
+              0,
+              -2.5
+            ][i]
+          ),
+          trees[0][1] - (height / 7) + math[5] * (
+            [
+              0,
+              -2.5,
+              -3.5,
+              -2.5,
+              0,
+              2.5,
+              3.5,
+              2.5
+            ][i]
+          ),
+          math[5],
+          0,
+          Math.PI * 2,
+          false
         );
         buffer.closePath();
         buffer.fill();
@@ -301,15 +297,15 @@ function update_background(){
     buffer.fillStyle = '#090';
     buffer.font = '42pt sans-serif';
     buffer.fillText(
-        'Veselé Vánoce!',
-        5,
-        47
+      'Veselé Vánoce!',
+      5,
+      47
     );
 }
 
 var a = 0;
-var buffer = get('buffer').getContext('2d');
-var canvas = get('canvas').getContext('2d');
+var buffer = document.getElementById('buffer').getContext('2d');
+var canvas = document.getElementById('canvas').getContext('2d');
 var flake_size = 0;
 var height = 0;
 var i = 0;
