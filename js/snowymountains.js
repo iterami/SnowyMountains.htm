@@ -1,21 +1,21 @@
 function draw(){
-    // draws over previous canvas frame, thereby clearing it too
+    // Draws over previous canvas frame, thereby clearing it too.
     canvas.drawImage(
       document.getElementById('buffer'),
       0,
       0
     );
 
-    // add 2 randomly placed snowflakes
-    flake_size = random_number(3) + 3;
+    // Add 2 randomly placed snowflakes.
+    snowflake_size = random_number(3) + 3;
     var loop_counter = 1;
     do{
         snowflakes.push([
-          random_number(width),// x
-          0,// y
-          flake_size,// width
-          flake_size,// height
-          random_number(4)// y speed
+          random_number(width),// X
+          0,// Y
+          snowflake_size,// Width
+          snowflake_size,// Height
+          random_number(4),// Y speed
         ]);
     }while(loop_counter--);
 
@@ -23,18 +23,18 @@ function draw(){
     canvas.fillStyle = '#fff';
     do{
         if(snowflakes[loop_counter][1] > height){
-            // remove snowflake that reached bottom of screen
+            // Remove snowflake that reached bottom of screen.
             snowflakes.splice(
               loop_counter,
               1
             );
 
         }else{
-            // update snowflake position
+            // Update snowflake position.
             snowflakes[loop_counter][0] += Math.random() * 2 - 1;
             snowflakes[loop_counter][1] += Math.random() * 4 + snowflakes[loop_counter][4];
 
-            // draw snowflake
+            // Draw snowflake.
             canvas.fillRect(
               snowflakes[loop_counter][0],
               snowflakes[loop_counter][1],
@@ -63,6 +63,7 @@ function resize(){
     update_background();
 }
 
+// TODO: Improve clarity.
 function update_background(){
     a = y * .75;
     k = y * .35;
@@ -74,11 +75,11 @@ function update_background(){
       0,
       0,
       0,
-      0
+      0,
     ];
     var trees = [];
 
-    // create 300 trees
+    // Create 300 trees.
     var loop_counter = 299;
     do{
         if(loop_counter > 200){
@@ -97,11 +98,11 @@ function update_background(){
           -(y / 2 - j) / k,
           '#' + random_number(5)
             + (random_number(5) + 4)
-            + random_number(5)
+            + random_number(5),
         ]);
     }while(loop_counter--);
 
-    // sort trees so closer trees are drawn on top
+    // Sort trees so closer trees are drawn on top.
     trees.sort(function(i,n){
         return parseFloat(n[2]) - parseFloat(i[2]);
     });
@@ -113,7 +114,7 @@ function update_background(){
       height
     );
 
-    // draw sky gradient
+    // Draw sky gradient.
     var gradient = buffer.createLinearGradient(
       x,
       10,
@@ -136,7 +137,7 @@ function update_background(){
       y
     );
 
-    // precalculate stuff
+    // Precalculate stuff.
     math = [
       width / 100,
       width / 45,
@@ -145,10 +146,10 @@ function update_background(){
       x * 1.6,
       height / 100,
       x * .9,
-      x * .7
+      x * .7,
     ];
 
-    // draw mountains with gradient fillstyle
+    // Draw mountains with gradient fillstyle.
     j = y * .25;
     k = y * .3;
     buffer.beginPath();
@@ -158,12 +159,12 @@ function update_background(){
           [
             x,
             math[2],
-            math[4]
+            math[4],
           ][loop_counter],
           [
             math[3],
             j,
-            k
+            k,
           ][loop_counter]
         );
         buffer.lineTo(
@@ -171,11 +172,11 @@ function update_background(){
             [
               x,
               math[2],
-              math[4]
+              math[4],
             ][loop_counter]) + ([
               math[6],
               math[7],
-              math[6]
+              math[6],
             ][loop_counter]
           ),
           y
@@ -185,11 +186,11 @@ function update_background(){
             [
               x,
               0,
-              math[4]
+              math[4],
             ][loop_counter]) - ([
               math[7],
               math[7],
-              math[6]
+              math[6],
             ][loop_counter]
           ),
           y
@@ -197,7 +198,7 @@ function update_background(){
     }while(loop_counter--);
     buffer.closePath();
 
-    // draw ground gardient
+    // Draw ground gardient.
     gradient = buffer.createLinearGradient(
       x,
       math[3],
@@ -215,7 +216,7 @@ function update_background(){
     buffer.fillStyle = gradient;
     buffer.fill();
 
-    // draw tree trunks
+    // Draw tree trunks.
     buffer.fillStyle = '#930';
     loop_counter = trees.length - 1;
     do{
@@ -227,7 +228,7 @@ function update_background(){
         );
     }while(loop_counter--);
 
-    // draw tree leaves
+    // Draw tree leaves.
     loop_counter = trees.length - 1;
     do{
         buffer.beginPath();
@@ -248,12 +249,12 @@ function update_background(){
         buffer.fill();
     }while(loop_counter--);
 
-    // draw wreathe on top of closest tree
+    // Draw wreathe on top of closest tree.
     loop_counter = 1;
     do{
         buffer.fillStyle = [
           trees[0][3],
-          '#0d0'
+          '#0d0',
         ][loop_counter];
         buffer.beginPath();
         buffer.arc(
@@ -268,7 +269,7 @@ function update_background(){
         buffer.fill();
     }while(loop_counter--);
 
-    // draw red ornaments on top of wreathe
+    // Draw red ornaments on top of wreathe.
     buffer.fillStyle = '#f00';
     loop_counter = 7;
     do{
@@ -283,7 +284,7 @@ function update_background(){
               3.5,
               2.5,
               0,
-              -2.5
+              -2.5,
             ][loop_counter]
           ),
           trees[0][1] - (height / 7) + math[5] * (
@@ -295,7 +296,7 @@ function update_background(){
               0,
               2.5,
               3.5,
-              2.5
+              2.5,
             ][loop_counter]
           ),
           math[5],
@@ -311,10 +312,10 @@ function update_background(){
 var a = 0;
 var buffer = document.getElementById('buffer').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
-var flake_size = 0;
 var height = 0;
 var k = 0;
 var snowflakes = [];
+var snowflake_size = 0;
 var width = 0;
 var x = 0;
 var y = 0;
