@@ -1,3 +1,13 @@
+function create_snowflake(){
+    snowflakes.push([
+      random_number(width),// X
+      0,// Y
+      snowflake_size,// Width
+      snowflake_size,// Height
+      random_number(4),// Y speed
+    ]);
+}
+
 function draw(){
     // Draws over previous canvas frame, thereby clearing it too.
     canvas.drawImage(
@@ -6,17 +16,39 @@ function draw(){
       0
     );
 
+    loop_counter = snowflakes.length - 1;
+    canvas.fillStyle = '#fff';
+    do{
+        // Draw snowflake.
+        canvas.fillRect(
+          snowflakes[loop_counter][0],
+          snowflakes[loop_counter][1],
+          snowflakes[loop_counter][2],
+          snowflakes[loop_counter][3]
+        );
+    }while(loop_counter--);
+
+    window.requestAnimationFrame(draw);
+}
+
+function init(){
+    resize();
+
+    create_snowflake();
+
+    window.requestAnimationFrame(draw);
+    setInterval(
+      'logic()',
+      35
+    );
+}
+
+function logic(){
     // Add 2 randomly placed snowflakes.
     snowflake_size = random_number(3) + 3;
     var loop_counter = 1;
     do{
-        snowflakes.push([
-          random_number(width),// X
-          0,// Y
-          snowflake_size,// Width
-          snowflake_size,// Height
-          random_number(4),// Y speed
-        ]);
+        create_snowflake();
     }while(loop_counter--);
 
     loop_counter = snowflakes.length - 1;
@@ -33,14 +65,6 @@ function draw(){
             // Update snowflake position.
             snowflakes[loop_counter][0] += Math.random() * 2 - 1;
             snowflakes[loop_counter][1] += Math.random() * 4 + snowflakes[loop_counter][4];
-
-            // Draw snowflake.
-            canvas.fillRect(
-              snowflakes[loop_counter][0],
-              snowflakes[loop_counter][1],
-              snowflakes[loop_counter][2],
-              snowflakes[loop_counter][3]
-            );
         }
     }while(loop_counter--);
 }
@@ -320,11 +344,6 @@ var width = 0;
 var x = 0;
 var y = 0;
 
-resize();
-
-setInterval(
-  'draw()',
-  35
-);
+window.onload = init;
 
 window.onresize = resize;
