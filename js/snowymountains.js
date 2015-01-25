@@ -31,18 +31,6 @@ function draw(){
     window.requestAnimationFrame(draw);
 }
 
-function init(){
-    resize();
-
-    create_snowflake();
-
-    window.requestAnimationFrame(draw);
-    setInterval(
-      'logic()',
-      35
-    );
-}
-
 function logic(){
     // Add 2 randomly placed snowflakes.
     snowflake_size = random_number(3) + 3;
@@ -344,6 +332,16 @@ var width = 0;
 var x = 0;
 var y = 0;
 
-window.onload = init;
+window.onload = function(){
+    resize();
+
+    create_snowflake();
+
+    window.requestAnimationFrame(draw);
+    setInterval(
+      'logic()',
+      35
+    );
+};
 
 window.onresize = resize;
