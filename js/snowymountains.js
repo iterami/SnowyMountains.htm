@@ -338,7 +338,7 @@ window.onload = function(){
     create_snowflake();
 
     window.requestAnimationFrame(draw);
-    setInterval(
+    window.setInterval(
       'logic()',
       35
     );
