@@ -75,7 +75,6 @@ function resize(){
     update_background();
 }
 
-// TODO: Improve clarity.
 function update_background(){
     a = y * .75;
     k = y * .35;
