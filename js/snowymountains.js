@@ -1,13 +1,3 @@
-function create_snowflake(){
-    snowflakes.push([
-      random_number(width),// X
-      0,// Y
-      snowflake_size,// Width
-      snowflake_size,// Height
-      random_number(4),// Y speed
-    ]);
-}
-
 function draw(){
     // Draws over previous canvas frame, thereby clearing it too.
     canvas.drawImage(
@@ -16,17 +6,16 @@ function draw(){
       0
     );
 
-    loop_counter = snowflakes.length - 1;
     canvas.fillStyle = '#fff';
-    do{
+    for(var snowflake in snowflakes){
         // Draw snowflake.
         canvas.fillRect(
-          snowflakes[loop_counter][0],
-          snowflakes[loop_counter][1],
-          snowflakes[loop_counter][2],
-          snowflakes[loop_counter][3]
+          snowflakes[snowflake][0],
+          snowflakes[snowflake][1],
+          snowflakes[snowflake][2],
+          snowflakes[snowflake][3]
         );
-    }while(loop_counter--);
+    }
 
     window.requestAnimationFrame(draw);
 }
@@ -36,25 +25,27 @@ function logic(){
     snowflake_size = random_number(3) + 3;
     var loop_counter = 1;
     do{
-        create_snowflake();
+        snowflakes.push([
+          random_number(width),// X
+          0,// Y
+          snowflake_size,// Width
+          snowflake_size,// Height
+          random_number(4),// Y speed
+        ]);
     }while(loop_counter--);
 
-    loop_counter = snowflakes.length - 1;
     canvas.fillStyle = '#fff';
-    do{
-        if(snowflakes[loop_counter][1] > height){
+    for(var snowflake in snowflakes){
+        if(snowflakes[snowflake][1] > height){
             // Remove snowflake that reached bottom of screen.
-            snowflakes.splice(
-              loop_counter,
-              1
-            );
+            delete snowflakes[snowflake];
 
         }else{
             // Update snowflake position.
-            snowflakes[loop_counter][0] += Math.random() * 2 - 1;
-            snowflakes[loop_counter][1] += Math.random() * 4 + snowflakes[loop_counter][4];
+            snowflakes[snowflake][0] += Math.random() * 2 - 1;
+            snowflakes[snowflake][1] += Math.random() * 4 + snowflakes[snowflake][4];
         }
-    }while(loop_counter--);
+    }
 }
 
 function random_number(i){
@@ -333,8 +324,6 @@ var y = 0;
 
 window.onload = function(){
     resize();
-
-    create_snowflake();
 
     window.requestAnimationFrame(draw);
     window.setInterval(
