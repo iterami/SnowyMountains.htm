@@ -6,9 +6,9 @@ function draw(){
       0
     );
 
+    // Draw snowflakes.
     canvas.fillStyle = '#fff';
     for(var snowflake in snowflakes){
-        // Draw snowflake.
         canvas.fillRect(
           snowflakes[snowflake][0],
           snowflakes[snowflake][1],
@@ -22,7 +22,7 @@ function draw(){
 
 function logic(){
     // Add 2 randomly placed snowflakes.
-    snowflake_size = random_number(3) + 3;
+    var snowflake_size = random_number(3) + 3;
     var loop_counter = 1;
     do{
         snowflakes.push([
@@ -63,22 +63,9 @@ function resize(){
     document.getElementById('canvas').width = width;
     x = width / 2;
 
-    update_background();
-}
-
-function update_background(){
-    a = y * .75;
-    k = y * .35;
+    var a = y * .75;
+    var k = y * .35;
     var j = 0;
-    var math = [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-    ];
     var trees = [];
 
     // Create 300 trees.
@@ -105,7 +92,7 @@ function update_background(){
     }while(loop_counter--);
 
     // Sort trees so closer trees are drawn on top.
-    trees.sort(function(i,n){
+    trees.sort(function(i, n){
         return parseFloat(n[2]) - parseFloat(i[2]);
     });
 
@@ -140,7 +127,7 @@ function update_background(){
     );
 
     // Precalculate stuff.
-    math = [
+    var math = [
       width / 100,
       width / 45,
       x * .4,
@@ -220,15 +207,14 @@ function update_background(){
 
     // Draw tree trunks.
     buffer.fillStyle = '#930';
-    loop_counter = trees.length - 1;
-    do{
+    for(var tree in trees){
         buffer.fillRect(
-          width * trees[loop_counter][0] - math[0] * 2,
-          trees[loop_counter][1],
-          math[0] * trees[loop_counter][2],
-          math[0] * trees[loop_counter][2]
+          width * trees[tree][0] - math[0] * 2,
+          trees[tree][1],
+          math[0] * trees[tree][2],
+          math[0] * trees[tree][2]
         );
-    }while(loop_counter--);
+    }
 
     // Draw tree leaves.
     loop_counter = trees.length - 1;
@@ -311,13 +297,11 @@ function update_background(){
     }while(loop_counter--);
 }
 
-var a = 0;
+
 var buffer = document.getElementById('buffer').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
-var k = 0;
 var snowflakes = [];
-var snowflake_size = 0;
 var width = 0;
 var x = 0;
 var y = 0;
