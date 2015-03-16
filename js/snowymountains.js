@@ -297,7 +297,6 @@ function resize(){
     }while(loop_counter--);
 }
 
-
 var buffer = document.getElementById('buffer').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
