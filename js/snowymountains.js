@@ -38,7 +38,10 @@ function logic(){
     for(var snowflake in snowflakes){
         if(snowflakes[snowflake][1] > height){
             // Remove snowflake that reached bottom of screen.
-            delete snowflakes[snowflake];
+            snowflakes.splice(
+              snowflake,
+              1
+            );
 
         }else{
             // Update snowflake position.
