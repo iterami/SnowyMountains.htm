@@ -10,10 +10,10 @@ function draw(){
     canvas.fillStyle = '#fff';
     for(var snowflake in snowflakes){
         canvas.fillRect(
-          snowflakes[snowflake][0],
-          snowflakes[snowflake][1],
-          snowflakes[snowflake][2],
-          snowflakes[snowflake][3]
+          snowflakes[snowflake]['x'],
+          snowflakes[snowflake]['y'],
+          snowflakes[snowflake]['size'],
+          snowflakes[snowflake]['size']
         );
     }
 
@@ -22,21 +22,19 @@ function draw(){
 
 function logic(){
     // Add 2 randomly placed snowflakes.
-    var snowflake_size = random_number(3) + 3;
     var loop_counter = 1;
     do{
-        snowflakes.push([
-          random_number(width),// X
-          0,// Y
-          snowflake_size,// Width
-          snowflake_size,// Height
-          random_number(4),// Y speed
-        ]);
+        snowflakes.push({
+          'size': random_number(3) + 3,
+          'speed': random_number(4),
+          'x': random_number(width),
+          'y': 0,
+        });
     }while(loop_counter--);
 
     canvas.fillStyle = '#fff';
     for(var snowflake in snowflakes){
-        if(snowflakes[snowflake][1] > height){
+        if(snowflakes[snowflake]['y'] > height){
             // Remove snowflake that reached bottom of screen.
             snowflakes.splice(
               snowflake,
@@ -45,8 +43,8 @@ function logic(){
 
         }else{
             // Update snowflake position.
-            snowflakes[snowflake][0] += Math.random() * 2 - 1;
-            snowflakes[snowflake][1] += Math.random() * 4 + snowflakes[snowflake][4];
+            snowflakes[snowflake]['x'] += Math.random() * 2 - 1;
+            snowflakes[snowflake]['y'] += Math.random() * 4 + snowflakes[snowflake]['speed'];
         }
     }
 }
