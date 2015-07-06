@@ -1,9 +1,9 @@
+#buffer{
+    display: none;
+}
 canvas{
     background: #fff;
     left: 0;
     position: absolute;
     top: 0;
-}
-#buffer{
-    display: none;
 }
