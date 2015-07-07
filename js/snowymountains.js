@@ -1,3 +1,5 @@
+'use strict';
+
 function draw(){
     // Draws over previous canvas frame, thereby clearing it too.
     canvas.drawImage(
