@@ -59,16 +59,17 @@ function resize(){
     height = window.innerHeight;
     document.getElementById('buffer').height = height;
     document.getElementById('canvas').height = height;
-    y = height / 2;
+    var y = height / 2;
 
     width = window.innerWidth;
     document.getElementById('buffer').width = width;
     document.getElementById('canvas').width = width;
-    x = width / 2;
+    var x = width / 2;
 
     var a = y * .75;
     var k = y * .35;
     var j = 0;
+    var tau = Math.PI * 2;
     var trees = [];
 
     // Create 300 trees.
@@ -253,7 +254,7 @@ function resize(){
           trees[0][1] - (height / 7),
           height / (40 - 20 * loop_counter),
           0,
-          Math.PI * 2,
+          tau,
           false
         );
         buffer.closePath();
@@ -292,7 +293,7 @@ function resize(){
           ),
           math[5],
           0,
-          Math.PI * 2,
+          tau,
           false
         );
         buffer.closePath();
@@ -305,8 +306,6 @@ var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
 var snowflakes = [];
 var width = 0;
-var x = 0;
-var y = 0;
 
 window.onload = function(){
     resize();
