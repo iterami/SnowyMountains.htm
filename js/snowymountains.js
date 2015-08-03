@@ -191,7 +191,7 @@ function resize(){
     }while(loop_counter--);
     buffer.closePath();
 
-    // Draw ground gardient.
+    // Draw ground gradient.
     gradient = buffer.createLinearGradient(
       x,
       math[3],
