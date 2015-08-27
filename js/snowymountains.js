@@ -9,7 +9,6 @@ function draw(){
     );
 
     // Draw snowflakes.
-    canvas.fillStyle = '#fff';
     for(var snowflake in snowflakes){
         canvas.fillRect(
           snowflakes[snowflake]['x'],
@@ -299,6 +298,8 @@ function resize(){
         buffer.closePath();
         buffer.fill();
     }while(loop_counter--);
+
+    canvas.fillStyle = '#fff';
 }
 
 var buffer = document.getElementById('buffer').getContext('2d', {
