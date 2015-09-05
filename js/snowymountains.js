@@ -1,7 +1,6 @@
 'use strict';
 
 function draw(){
-    // Draws over previous canvas frame, thereby clearing it too.
     canvas.drawImage(
       document.getElementById('buffer'),
       0,
@@ -22,18 +21,17 @@ function draw(){
 }
 
 function logic(){
-    // Add 2 randomly placed snowflakes.
+    // Add 2 snowflakes.
     var loop_counter = 1;
     do{
         snowflakes.push({
-          'size': random_number(3) + 3,
+          'size': random_number(2) + 3,
           'speed': random_number(4),
           'x': random_number(width),
           'y': 0,
         });
     }while(loop_counter--);
 
-    canvas.fillStyle = '#fff';
     for(var snowflake in snowflakes){
         if(snowflakes[snowflake]['y'] > height){
             // Remove snowflake that reached bottom of screen.
