@@ -309,6 +309,8 @@ var snowflakes = [];
 var width = 0;
 
 window.onload = function(){
+    document.getElementById('canvas').style.background = '#fff';
+
     resize();
 
     window.requestAnimationFrame(draw);
