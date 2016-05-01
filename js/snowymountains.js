@@ -1,109 +1,6 @@
 'use strict';
 
-function draw(){
-    canvas.drawImage(
-      document.getElementById('buffer'),
-      0,
-      0
-    );
-
-    // Draw snowflakes.
-    for(var snowflake in snowflakes){
-        canvas.fillRect(
-          snowflakes[snowflake]['x'],
-          snowflakes[snowflake]['y'],
-          snowflakes[snowflake]['size'],
-          snowflakes[snowflake]['size']
-        );
-    }
-
-    window.requestAnimationFrame(draw);
-}
-
-function logic(){
-    // Add 2 snowflakes.
-    var loop_counter = 1;
-    do{
-        snowflakes.push({
-          'size': random_number(2) + 3,
-          'speed': random_number(4),
-          'x': random_number(width),
-          'y': 0,
-        });
-    }while(loop_counter--);
-
-    for(var snowflake in snowflakes){
-        if(snowflakes[snowflake]['y'] > height){
-            // Remove snowflake that reached bottom of screen.
-            snowflakes.splice(
-              snowflake,
-              1
-            );
-
-        }else{
-            // Update snowflake position.
-            snowflakes[snowflake]['x'] += Math.random() * 2 - 1;
-            snowflakes[snowflake]['y'] += Math.random() * 4 + snowflakes[snowflake]['speed'];
-        }
-    }
-}
-
-function random_number(i){
-    return Math.floor(Math.random() * i);
-}
-
-function resize(){
-    height = window.innerHeight;
-    document.getElementById('buffer').height = height;
-    document.getElementById('canvas').height = height;
-    var y = height / 2;
-
-    width = window.innerWidth;
-    document.getElementById('buffer').width = width;
-    document.getElementById('canvas').width = width;
-    var x = width / 2;
-
-    var a = y * .75;
-    var k = y * .35;
-    var j = 0;
-    var tau = Math.PI * 2;
-    var trees = [];
-
-    // Create 300 trees.
-    var loop_counter = 299;
-    do{
-        if(loop_counter > 200){
-            j = random_number(y * 1.1) + a;
-
-        }else if(loop_counter > 10){
-            j = random_number(y * .7) + a;
-
-        }else{
-            j = random_number(y * .2) + a;
-        }
-
-        trees.push([
-          Math.random(),
-          j,
-          -(y / 2 - j) / k,
-          '#' + random_number(5)
-            + (random_number(5) + 4)
-            + random_number(5),
-        ]);
-    }while(loop_counter--);
-
-    // Sort trees so closer trees are drawn on top.
-    trees.sort(function(i, n){
-        return parseFloat(n[2]) - parseFloat(i[2]);
-    });
-
-    buffer.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
-
+function draw_logic(){
     // Draw sky gradient.
     var gradient = buffer.createLinearGradient(
       x,
@@ -140,10 +37,10 @@ function resize(){
     ];
 
     // Draw mountains with gradient fillstyle.
-    j = y * .25;
-    k = y * .3;
+    var j = y * .25;
+    var k = y * .3;
     buffer.beginPath();
-    loop_counter = 2;
+    var loop_counter = 2;
     do{
         buffer.moveTo(
           [
@@ -297,27 +194,92 @@ function resize(){
         buffer.fill();
     }while(loop_counter--);
 
-    canvas.fillStyle = '#fff';
+    buffer.fillStyle = '#fff';
+    // Draw snowflakes.
+    for(var snowflake in snowflakes){
+        buffer.fillRect(
+          snowflakes[snowflake]['x'],
+          snowflakes[snowflake]['y'],
+          snowflakes[snowflake]['size'],
+          snowflakes[snowflake]['size']
+        );
+    }
 }
 
-var buffer = document.getElementById('buffer').getContext('2d', {
-  'alpha': false,
-});
-var canvas = document.getElementById('canvas').getContext('2d');
-var height = 0;
+function logic(){
+    // Add 2 snowflakes.
+    var loop_counter = 1;
+    do{
+        snowflakes.push({
+          'size': random_number(2) + 3,
+          'speed': random_number(4),
+          'x': random_number(width),
+          'y': 0,
+        });
+    }while(loop_counter--);
+
+    for(var snowflake in snowflakes){
+        if(snowflakes[snowflake]['y'] > height){
+            // Remove snowflake that reached bottom of screen.
+            snowflakes.splice(
+              snowflake,
+              1
+            );
+
+        }else{
+            // Update snowflake position.
+            snowflakes[snowflake]['x'] += Math.random() * 2 - 1;
+            snowflakes[snowflake]['y'] += Math.random() * 4 + snowflakes[snowflake]['speed'];
+        }
+    }
+}
+
+function random_number(i){
+    return Math.floor(Math.random() * i);
+}
+
+function resize_logic(){
+    trees = [];
+
+    var a = y * .75;
+    var k = y * .35;
+    var j = 0;
+
+    // Create 300 trees.
+    var loop_counter = 299;
+    do{
+        if(loop_counter > 200){
+            j = random_number(y * 1.1) + a;
+
+        }else if(loop_counter > 10){
+            j = random_number(y * .7) + a;
+
+        }else{
+            j = random_number(y * .2) + a;
+        }
+
+        trees.push([
+          Math.random(),
+          j,
+          -(y / 2 - j) / k,
+          '#' + random_number(5)
+            + (random_number(5) + 4)
+            + random_number(5),
+        ]);
+    }while(loop_counter--);
+
+    // Sort trees so closer trees are drawn on top.
+    trees.sort(function(i, n){
+        return parseFloat(n[2]) - parseFloat(i[2]);
+    });
+}
+
 var snowflakes = [];
-var width = 0;
+var tau = Math.PI * 2;
+var trees = [];
 
 window.onload = function(){
     document.getElementById('canvas').style.background = '#fff';
 
-    resize();
-
-    window.requestAnimationFrame(draw);
-    window.setInterval(
-      logic,
-      35
-    );
+    init_canvas();
 };
-
-window.onresize = resize;
