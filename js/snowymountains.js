@@ -34,6 +34,7 @@ function draw_logic(){
       height / 100,
       x * .9,
       x * .7,
+      height / 7,
     ];
 
     // Draw mountains with gradient fillstyle.
@@ -120,7 +121,7 @@ function draw_logic(){
         buffer.beginPath();
         buffer.moveTo(
           width * trees[loop_counter][0],
-          trees[loop_counter][1] - (height / 7) * trees[loop_counter][2]
+          trees[loop_counter][1] - math[8] * trees[loop_counter][2]
         );
         buffer.lineTo(
           width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
@@ -145,7 +146,7 @@ function draw_logic(){
         buffer.beginPath();
         buffer.arc(
           width * trees[0][0],
-          trees[0][1] - (height / 7),
+          trees[0][1] - math[8],
           height / (40 - 20 * loop_counter),
           0,
           tau,
@@ -173,7 +174,7 @@ function draw_logic(){
               -2.5,
             ][loop_counter]
           ),
-          trees[0][1] - (height / 7) + math[5] * (
+          trees[0][1] - math[8] + math[5] * (
             [
               0,
               -2.5,
@@ -279,7 +280,7 @@ var tau = Math.PI * 2;
 var trees = [];
 
 window.onload = function(){
-    document.getElementById('canvas').style.background = '#fff';
+    document.body.style.background = '#fff';
 
     init_canvas();
 };
