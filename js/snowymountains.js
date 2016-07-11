@@ -2,11 +2,11 @@
 
 function draw_logic(){
     // Draw sky gradient.
-    var gradient = buffer.createLinearGradient(
-      x,
+    var gradient = canvas_buffer.createLinearGradient(
+      canvas_x,
       10,
-      x,
-      y
+      canvas_x,
+      canvas_y
     );
     gradient.addColorStop(
       0,
@@ -16,36 +16,36 @@ function draw_logic(){
       1,
       '#003'
     );
-    buffer.fillStyle = gradient;
-    buffer.fillRect(
+    canvas_buffer.fillStyle = gradient;
+    canvas_buffer.fillRect(
       0,
       0,
-      width,
-      y
+      canvas_width,
+      canvas_y
     );
 
     // Precalculate stuff.
     var math = [
-      width / 100,
-      width / 45,
-      x * .4,
-      y * .4,
-      x * 1.6,
-      height / 100,
-      x * .9,
-      x * .7,
-      height / 7,
+      canvas_width / 100,
+      canvas_width / 45,
+      canvas_x * .4,
+      canvas_y * .4,
+      canvas_x * 1.6,
+      canvas_height / 100,
+      canvas_x * .9,
+      canvas_x * .7,
+      canvas_height / 7,
     ];
 
     // Draw mountains with gradient fillstyle.
-    var j = y * .25;
-    var k = y * .3;
-    buffer.beginPath();
+    var j = canvas_y * .25;
+    var k = canvas_y * .3;
+    canvas_buffer.beginPath();
     var loop_counter = 2;
     do{
-        buffer.moveTo(
+        canvas_buffer.moveTo(
           [
-            x,
+            canvas_x,
             math[2],
             math[4],
           ][loop_counter],
@@ -55,10 +55,10 @@ function draw_logic(){
             k,
           ][loop_counter]
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           (
             [
-              x,
+              canvas_x,
               math[2],
               math[4],
             ][loop_counter]) + ([
@@ -67,12 +67,12 @@ function draw_logic(){
               math[6],
             ][loop_counter]
           ),
-          y
+          canvas_y
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           (
             [
-              x,
+              canvas_x,
               0,
               math[4],
             ][loop_counter]) - ([
@@ -81,17 +81,17 @@ function draw_logic(){
               math[6],
             ][loop_counter]
           ),
-          y
+          canvas_y
         );
     }while(loop_counter--);
-    buffer.closePath();
+    canvas_buffer.closePath();
 
     // Draw ground gradient.
-    gradient = buffer.createLinearGradient(
-      x,
+    gradient = canvas_buffer.createLinearGradient(
+      canvas_x,
       math[3],
-      x,
-      y * .65
+      canvas_x,
+      canvas_y * .65
     );
     gradient.addColorStop(
       0,
@@ -101,14 +101,14 @@ function draw_logic(){
       1,
       '#730'
     );
-    buffer.fillStyle = gradient;
-    buffer.fill();
+    canvas_buffer.fillStyle = gradient;
+    canvas_buffer.fill();
 
     // Draw tree trunks.
-    buffer.fillStyle = '#930';
+    canvas_buffer.fillStyle = '#930';
     for(var tree in trees){
-        buffer.fillRect(
-          width * trees[tree][0] - math[0] * 2,
+        canvas_buffer.fillRect(
+          canvas_width * trees[tree][0] - math[0] * 2,
           trees[tree][1],
           math[0] * trees[tree][2],
           math[0] * trees[tree][2]
@@ -118,51 +118,51 @@ function draw_logic(){
     // Draw tree leaves.
     loop_counter = trees.length - 1;
     do{
-        buffer.beginPath();
-        buffer.moveTo(
-          width * trees[loop_counter][0],
+        canvas_buffer.beginPath();
+        canvas_buffer.moveTo(
+          canvas_width * trees[loop_counter][0],
           trees[loop_counter][1] - math[8] * trees[loop_counter][2]
         );
-        buffer.lineTo(
-          width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
+        canvas_buffer.lineTo(
+          canvas_width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
           trees[loop_counter][1] + 1
         );
-        buffer.lineTo(
-          width * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
+        canvas_buffer.lineTo(
+          canvas_width * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
           trees[loop_counter][1] + 1
         );
-        buffer.closePath();
-        buffer.fillStyle = trees[loop_counter][3];
-        buffer.fill();
+        canvas_buffer.closePath();
+        canvas_buffer.fillStyle = trees[loop_counter][3];
+        canvas_buffer.fill();
     }while(loop_counter--);
 
     // Draw wreathe on top of closest tree.
     loop_counter = 1;
     do{
-        buffer.fillStyle = [
+        canvas_buffer.fillStyle = [
           trees[0][3],
           '#0d0',
         ][loop_counter];
-        buffer.beginPath();
-        buffer.arc(
-          width * trees[0][0],
+        canvas_buffer.beginPath();
+        canvas_buffer.arc(
+          canvas_width * trees[0][0],
           trees[0][1] - math[8],
-          height / (40 - 20 * loop_counter),
+          canvas_height / (40 - 20 * loop_counter),
           0,
           tau,
           false
         );
-        buffer.closePath();
-        buffer.fill();
+        canvas_buffer.closePath();
+        canvas_buffer.fill();
     }while(loop_counter--);
 
     // Draw red ornaments on top of wreathe.
-    buffer.fillStyle = '#f00';
+    canvas_buffer.fillStyle = '#f00';
     loop_counter = 7;
     do{
-        buffer.beginPath();
-        buffer.arc(
-          width * trees[0][0] + math[5] * (
+        canvas_buffer.beginPath();
+        canvas_buffer.arc(
+          canvas_width * trees[0][0] + math[5] * (
             [
               -3.7,
               -2.7,
@@ -191,14 +191,14 @@ function draw_logic(){
           tau,
           false
         );
-        buffer.closePath();
-        buffer.fill();
+        canvas_buffer.closePath();
+        canvas_buffer.fill();
     }while(loop_counter--);
 
-    buffer.fillStyle = '#fff';
+    canvas_buffer.fillStyle = '#fff';
     // Draw snowflakes.
     for(var snowflake in snowflakes){
-        buffer.fillRect(
+        canvas_buffer.fillRect(
           snowflakes[snowflake]['x'],
           snowflakes[snowflake]['y'],
           snowflakes[snowflake]['size'],
@@ -214,13 +214,13 @@ function logic(){
         snowflakes.push({
           'size': random_number(2) + 3,
           'speed': random_number(4),
-          'x': random_number(width),
+          'x': random_number(canvas_width),
           'y': 0,
         });
     }while(loop_counter--);
 
     for(var snowflake in snowflakes){
-        if(snowflakes[snowflake]['y'] > height){
+        if(snowflakes[snowflake]['y'] > canvas_height){
             // Remove snowflake that reached bottom of screen.
             snowflakes.splice(
               snowflake,
@@ -242,27 +242,27 @@ function random_number(i){
 function resize_logic(){
     trees = [];
 
-    var a = y * .75;
-    var k = y * .35;
+    var a = canvas_y * .75;
+    var k = canvas_y * .35;
     var j = 0;
 
     // Create 300 trees.
     var loop_counter = 299;
     do{
         if(loop_counter > 200){
-            j = random_number(y * 1.1) + a;
+            j = random_number(canvas_y * 1.1) + a;
 
         }else if(loop_counter > 10){
-            j = random_number(y * .7) + a;
+            j = random_number(canvas_y * .7) + a;
 
         }else{
-            j = random_number(y * .2) + a;
+            j = random_number(canvas_y * .2) + a;
         }
 
         trees.push([
           Math.random(),
           j,
-          -(y / 2 - j) / k,
+          -(canvas_y / 2 - j) / k,
           '#' + random_number(5)
             + (random_number(5) + 4)
             + random_number(5),
@@ -282,5 +282,5 @@ var trees = [];
 window.onload = function(){
     document.body.style.background = '#fff';
 
-    init_canvas();
+    canvas_init();
 };
