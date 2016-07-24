@@ -149,7 +149,7 @@ function draw_logic(){
           trees[0][1] - math[8],
           canvas_height / (40 - 20 * loop_counter),
           0,
-          tau,
+          math_tau,
           false
         );
         canvas_buffer.closePath();
@@ -188,7 +188,7 @@ function draw_logic(){
           ),
           math[5],
           0,
-          tau,
+          math_tau,
           false
         );
         canvas_buffer.closePath();
