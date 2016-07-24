@@ -272,7 +272,6 @@ function resize_logic(){
 }
 
 var snowflakes = [];
-var tau = Math.PI * 2;
 var trees = [];
 
 window.onload = function(){
