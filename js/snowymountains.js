@@ -40,51 +40,48 @@ function draw_logic(){
     // Draw mountains with gradient fillstyle.
     var j = canvas_y * .25;
     var k = canvas_y * .3;
-    canvas_buffer.beginPath();
     var loop_counter = 2;
+    var vertices = [];
     do{
-        canvas_buffer.moveTo(
-          [
+        vertices.push({
+          'type': 'moveTo',
+          'x': [
             canvas_x,
             math[2],
             math[4],
           ][loop_counter],
-          [
+          'y': [
             math[3],
             j,
             k,
-          ][loop_counter]
-        );
-        canvas_buffer.lineTo(
-          (
-            [
-              canvas_x,
-              math[2],
-              math[4],
-            ][loop_counter]) + ([
-              math[6],
-              math[7],
-              math[6],
-            ][loop_counter]
-          ),
-          canvas_y
-        );
-        canvas_buffer.lineTo(
-          (
-            [
-              canvas_x,
-              0,
-              math[4],
-            ][loop_counter]) - ([
-              math[7],
-              math[7],
-              math[6],
-            ][loop_counter]
-          ),
-          canvas_y
-        );
+          ][loop_counter],
+        });
+        vertices.push({
+          'x': [
+            canvas_x,
+            math[2],
+            math[4],
+          ][loop_counter] + [
+            math[6],
+            math[7],
+            math[6],
+          ][loop_counter],
+          'y': canvas_y,
+        });
+        vertices.push({
+          'x': [
+            canvas_x,
+            0,
+            math[4],
+          ][loop_counter] - [
+            math[7],
+            math[7],
+            math[6],
+          ][loop_counter],
+          'y': canvas_y,
+        });
     }while(loop_counter--);
-    canvas_buffer.closePath();
+    canvas_draw_path(vertices);
 
     // Draw ground gradient.
     gradient = canvas_buffer.createLinearGradient(
@@ -118,81 +115,89 @@ function draw_logic(){
     // Draw tree leaves.
     loop_counter = trees.length - 1;
     do{
-        canvas_buffer.beginPath();
-        canvas_buffer.moveTo(
-          canvas_width * trees[loop_counter][0],
-          trees[loop_counter][1] - math[8] * trees[loop_counter][2]
+        canvas_draw_path(
+          [
+            {
+              'type': 'moveTo',
+              'x': canvas_width * trees[loop_counter][0],
+              'y': trees[loop_counter][1] - math[8] * trees[loop_counter][2],
+            },
+            {
+              'x': canvas_width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
+              'y': trees[loop_counter][1] + 1,
+            },
+            {
+              'x': canvas_width * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
+              'y': trees[loop_counter][1] + 1,
+            },
+          ],
+          {
+            'fillStyle': trees[loop_counter][3],
+          }
         );
-        canvas_buffer.lineTo(
-          canvas_width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
-          trees[loop_counter][1] + 1
-        );
-        canvas_buffer.lineTo(
-          canvas_width * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
-          trees[loop_counter][1] + 1
-        );
-        canvas_buffer.closePath();
-        canvas_buffer.fillStyle = trees[loop_counter][3];
-        canvas_buffer.fill();
     }while(loop_counter--);
 
     // Draw wreathe on top of closest tree.
     loop_counter = 1;
     do{
-        canvas_buffer.fillStyle = [
-          trees[0][3],
-          '#0d0',
-        ][loop_counter];
-        canvas_buffer.beginPath();
-        canvas_buffer.arc(
-          canvas_width * trees[0][0],
-          trees[0][1] - math[8],
-          canvas_height / (40 - 20 * loop_counter),
-          0,
-          math_tau,
-          false
+        canvas_draw_path(
+          [
+            {
+              'endAngle': math_tau,
+              'radius': canvas_height / (40 - 20 * loop_counter),
+              'startAngle': 0,
+              'type': 'arc',
+              'x': canvas_width * trees[0][0],
+              'y': trees[0][1] - math[8],
+            },
+          ],
+          {
+            'fillStyle': [
+              trees[0][3],
+              '#0d0',
+            ][loop_counter],
+          }
         );
-        canvas_buffer.closePath();
-        canvas_buffer.fill();
     }while(loop_counter--);
 
     // Draw red ornaments on top of wreathe.
     canvas_buffer.fillStyle = '#f00';
     loop_counter = 7;
     do{
-        canvas_buffer.beginPath();
-        canvas_buffer.arc(
-          canvas_width * trees[0][0] + math[5] * (
-            [
-              -3.7,
-              -2.7,
-              0,
-              2.7,
-              3.7,
-              2.7,
-              0,
-              -2.7,
-            ][loop_counter]
-          ),
-          trees[0][1] - math[8] + math[5] * (
-            [
-              0,
-              -2.7,
-              -3.7,
-              -2.7,
-              0,
-              2.7,
-              3.7,
-              2.7,
-            ][loop_counter]
-          ),
-          math[5],
-          0,
-          math_tau,
-          false
+        canvas_draw_path(
+          [
+            {
+              'endAngle': math_tau,
+              'radius': math[5],
+              'startAngle': 0,
+              'type': 'arc',
+              'x': canvas_width * trees[0][0] + math[5] * (
+                [
+                  -3.7,
+                  -2.7,
+                  0,
+                  2.7,
+                  3.7,
+                  2.7,
+                  0,
+                  -2.7,
+                ][loop_counter]
+              ),
+              'y': trees[0][1] - math[8] + math[5] * (
+                [
+                  0,
+                  -2.7,
+                  -3.7,
+                  -2.7,
+                  0,
+                  2.7,
+                  3.7,
+                  2.7,
+                ][loop_counter]
+              ),
+            },
+          ]
         );
-        canvas_buffer.closePath();
-        canvas_buffer.fill();
     }while(loop_counter--);
 
     canvas_buffer.fillStyle = '#fff';
