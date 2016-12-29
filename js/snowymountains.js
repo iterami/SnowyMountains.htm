@@ -271,8 +271,9 @@ function resize_logic(){
     }while(loop_counter--);
 
     // Sort trees so closer trees are drawn on top.
-    trees.sort(function(i, n){
-        return parseFloat(n[2]) - parseFloat(i[2]);
+    sort_property({
+      'array': trees,
+      'property': 2,
     });
 }
 
