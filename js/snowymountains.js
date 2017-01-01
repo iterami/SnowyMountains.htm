@@ -217,9 +217,15 @@ function logic(){
     var loop_counter = 1;
     do{
         snowflakes.push({
-          'size': random_integer(2) + 3,
-          'speed': random_integer(4),
-          'x': random_integer(canvas_width),
+          'size': random_integer({
+            'max': 2,
+          }) + 3,
+          'speed': random_integer({
+            'max': 4,
+          }),
+          'x': random_integer({
+            'max': canvas_width,
+          }),
           'y': 0,
         });
     }while(loop_counter--);
@@ -251,22 +257,34 @@ function resize_logic(){
     var loop_counter = 299;
     do{
         if(loop_counter > 200){
-            j = random_integer(canvas_y * 1.1) + a;
+            j = random_integer({
+              'max': canvas_y * 1.1,
+            }) + a;
 
         }else if(loop_counter > 10){
-            j = random_integer(canvas_y * .7) + a;
+            j = random_integer({
+              'max': canvas_y * .7,
+            }) + a;
 
         }else{
-            j = random_integer(canvas_y * .2) + a;
+            j = random_integer({
+              'max': canvas_y * .2,
+            }) + a;
         }
 
         trees.push([
           Math.random(),
           j,
           -(canvas_y / 2 - j) / k,
-          '#' + random_integer(5)
-            + (random_integer(5) + 4)
-            + random_integer(5),
+          '#' + random_integer({
+              'max': 5,
+            })
+            + (random_integer({
+              'max': 5,
+            }) + 4)
+            + random_integer({
+              'max': 5,
+            }),
         ]);
     }while(loop_counter--);
 
@@ -274,6 +292,7 @@ function resize_logic(){
     sort_property({
       'array': trees,
       'property': 2,
+      'reverse': true,
     });
 }
 
