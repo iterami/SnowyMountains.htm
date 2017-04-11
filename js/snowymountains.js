@@ -2,21 +2,7 @@
 
 function draw_logic(){
     // Draw sky gradient.
-    var gradient = canvas_buffer.createLinearGradient(
-      canvas_x,
-      10,
-      canvas_x,
-      canvas_y
-    );
-    gradient.addColorStop(
-      0,
-      '#ccc'
-    );
-    gradient.addColorStop(
-      1,
-      '#003'
-    );
-    canvas_buffer.fillStyle = gradient;
+    canvas_buffer.fillStyle = gradient_sky;
     canvas_buffer.fillRect(
       0,
       0,
@@ -29,7 +15,6 @@ function draw_logic(){
       canvas_width / 100,
       canvas_width / 45,
       canvas_x * .4,
-      canvas_y * .4,
       canvas_x * 1.6,
       canvas_height / 100,
       canvas_x * .9,
@@ -48,10 +33,10 @@ function draw_logic(){
           'x': [
             canvas_x,
             math[2],
-            math[4],
+            math[3],
           ][loop_counter],
           'y': [
-            math[3],
+            canvas_y * .4,
             j,
             k,
           ][loop_counter],
@@ -60,11 +45,11 @@ function draw_logic(){
           'x': [
             canvas_x,
             math[2],
-            math[4],
+            math[3],
           ][loop_counter] + [
+            math[5],
             math[6],
-            math[7],
-            math[6],
+            math[5],
           ][loop_counter],
           'y': canvas_y,
         });
@@ -72,11 +57,11 @@ function draw_logic(){
           'x': [
             canvas_x,
             0,
-            math[4],
+            math[3],
           ][loop_counter] - [
-            math[7],
-            math[7],
             math[6],
+            math[6],
+            math[5],
           ][loop_counter],
           'y': canvas_y,
         });
@@ -86,21 +71,7 @@ function draw_logic(){
     });
 
     // Draw ground gradient.
-    gradient = canvas_buffer.createLinearGradient(
-      canvas_x,
-      math[3],
-      canvas_x,
-      canvas_y * .65
-    );
-    gradient.addColorStop(
-      0,
-      '#eee'
-    );
-    gradient.addColorStop(
-      1,
-      '#730'
-    );
-    canvas_buffer.fillStyle = gradient;
+    canvas_buffer.fillStyle = gradient_ground;
     canvas_buffer.fill();
 
     // Draw tree trunks.
@@ -125,7 +96,7 @@ function draw_logic(){
             {
               'type': 'moveTo',
               'x': canvas_width * trees[loop_counter][0],
-              'y': trees[loop_counter][1] - math[8] * trees[loop_counter][2],
+              'y': trees[loop_counter][1] - math[7] * trees[loop_counter][2],
             },
             {
               'x': canvas_width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
@@ -156,7 +127,7 @@ function draw_logic(){
               'startAngle': 0,
               'type': 'arc',
               'x': canvas_width * trees[0][0],
-              'y': trees[0][1] - math[8],
+              'y': trees[0][1] - math[7],
             },
           ],
         });
@@ -170,10 +141,10 @@ function draw_logic(){
           'vertices': [
             {
               'endAngle': math_tau,
-              'radius': math[5],
+              'radius': math[4],
               'startAngle': 0,
               'type': 'arc',
-              'x': canvas_width * trees[0][0] + math[5] * (
+              'x': canvas_width * trees[0][0] + math[4] * (
                 [
                   -3.7,
                   -2.7,
@@ -185,7 +156,7 @@ function draw_logic(){
                   -2.7,
                 ][loop_counter]
               ),
-              'y': trees[0][1] - math[8] + math[5] * (
+              'y': trees[0][1] - math[7] + math[4] * (
                 [
                   0,
                   -2.7,
@@ -296,8 +267,40 @@ function resize_logic(){
       'property': 2,
       'reverse': true,
     });
+
+    // Create gradients.
+    gradient_ground = canvas_buffer.createLinearGradient(
+      canvas_x,
+      canvas_y * .4,
+      canvas_x,
+      canvas_y * .65
+    );
+    gradient_ground.addColorStop(
+      0,
+      '#eee'
+    );
+    gradient_ground.addColorStop(
+      1,
+      '#730'
+    );
+    gradient_sky = canvas_buffer.createLinearGradient(
+      canvas_x,
+      10,
+      canvas_x,
+      canvas_y
+    );
+    gradient_sky.addColorStop(
+      0,
+      '#ccc'
+    );
+    gradient_sky.addColorStop(
+      1,
+      '#003'
+    );
 }
 
+var gradient_ground = 0;
+var gradient_sky = 0;
 var snowflakes = [];
 var trees = [];
 
