@@ -269,34 +269,36 @@ function resize_logic(){
     });
 
     // Create gradients.
-    gradient_ground = canvas_buffer.createLinearGradient(
-      canvas_x,
-      canvas_y * .4,
-      canvas_x,
-      canvas_y * .65
-    );
-    gradient_ground.addColorStop(
-      0,
-      '#eee'
-    );
-    gradient_ground.addColorStop(
-      1,
-      '#730'
-    );
-    gradient_sky = canvas_buffer.createLinearGradient(
-      canvas_x,
-      10,
-      canvas_x,
-      canvas_y
-    );
-    gradient_sky.addColorStop(
-      0,
-      '#ccc'
-    );
-    gradient_sky.addColorStop(
-      1,
-      '#003'
-    );
+    gradient_ground = canvas_gradient({
+      'height': canvas_y * .65,
+      'steps': [
+        {
+          'color': '#eee',
+        },
+        {
+          'color': '#730',
+          'offset': 1,
+        },
+      ],
+      'width': canvas_x,
+      'x': canvas_x,
+      'y': canvas_y * .4,
+    });
+    gradient_sky = canvas_gradient({
+      'height': canvas_y,
+      'steps': [
+        {
+          'color': '#ccc',
+        },
+        {
+          'color': '#003',
+          'offset': 1,
+        },
+      ],
+      'width': canvas_x,
+      'x': canvas_x,
+      'y': 10,
+    });
 }
 
 var gradient_ground = 0;
