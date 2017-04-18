@@ -271,7 +271,7 @@ function resize_logic(){
     // Create gradients.
     gradient_ground = canvas_gradient({
       'height': canvas_y * .65,
-      'steps': [
+      'stops': [
         {
           'color': '#eee',
         },
@@ -286,7 +286,7 @@ function resize_logic(){
     });
     gradient_sky = canvas_gradient({
       'height': canvas_y,
-      'steps': [
+      'stops': [
         {
           'color': '#ccc',
         },
