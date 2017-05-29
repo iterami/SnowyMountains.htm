@@ -219,6 +219,12 @@ function logic(){
     }
 }
 
+function repo_init(){
+    document.body.style.background = '#fff';
+
+    canvas_init();
+}
+
 function resize_logic(){
     trees = [];
 
@@ -305,9 +311,3 @@ var gradient_ground = 0;
 var gradient_sky = 0;
 var snowflakes = [];
 var trees = [];
-
-window.onload = function(){
-    document.body.style.background = '#fff';
-
-    canvas_init();
-};
