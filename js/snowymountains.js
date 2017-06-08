@@ -220,6 +220,10 @@ function logic(){
 }
 
 function repo_init(){
+    core_repo_init({
+      'title': 'SnowyMountains.htm',
+    });
+
     document.body.style.background = '#fff';
 
     canvas_init();
