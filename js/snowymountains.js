@@ -10,18 +10,6 @@ function draw_logic(){
       canvas_y
     );
 
-    // Precalculate stuff.
-    var math = [
-      canvas_width / 100,
-      canvas_width / 45,
-      canvas_x * .4,
-      canvas_x * 1.6,
-      canvas_height / 100,
-      canvas_x * .9,
-      canvas_x * .7,
-      canvas_height / 7,
-    ];
-
     // Draw mountains with gradient fillstyle.
     var j = canvas_y * .25;
     var k = canvas_y * .3;
@@ -175,12 +163,12 @@ function draw_logic(){
 
     canvas_buffer.fillStyle = '#fff';
     // Draw snowflakes.
-    for(var snowflake in snowflakes){
+    for(var entity in core_entities){
         canvas_buffer.fillRect(
-          snowflakes[snowflake]['x'],
-          snowflakes[snowflake]['y'],
-          snowflakes[snowflake]['size'],
-          snowflakes[snowflake]['size']
+          core_entities[entity]['x'],
+          core_entities[entity]['y'],
+          core_entities[entity]['size'],
+          core_entities[entity]['size']
         );
     }
 }
@@ -189,32 +177,35 @@ function logic(){
     // Add 2 snowflakes.
     var loop_counter = 1;
     do{
-        snowflakes.push({
-          'size': core_random_integer({
-            'max': 2,
-          }) + 3,
-          'speed': core_random_integer({
-            'max': 4,
-          }),
-          'x': core_random_integer({
-            'max': canvas_width,
-          }),
-          'y': 0,
+        core_entity_create({
+          'properties': {
+            'size': core_random_integer({
+              'max': 2,
+            }) + 3,
+            'speed': core_random_integer({
+              'max': 4,
+            }),
+            'x': core_random_integer({
+              'max': canvas_width,
+            }),
+            'y': 0,
+          },
         });
     }while(loop_counter--);
 
-    for(var snowflake in snowflakes){
-        if(snowflakes[snowflake]['y'] > canvas_height){
+    for(var entity in core_entities){
+        if(core_entities[entity]['y'] > canvas_height){
             // Remove snowflake that reached bottom of screen.
-            snowflakes.splice(
-              snowflake,
-              1
-            );
+            core_entity_remove({
+              'entities': [
+                entity,
+              ],
+            });
 
         }else{
             // Update snowflake position.
-            snowflakes[snowflake]['x'] += Math.random() * 2 - 1;
-            snowflakes[snowflake]['y'] += Math.random() * 4 + snowflakes[snowflake]['speed'];
+            core_entities[entity]['x'] += Math.random() * 2 - 1;
+            core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
         }
     }
 }
@@ -230,6 +221,18 @@ function repo_init(){
 }
 
 function resize_logic(){
+    // Precalculate stuff.
+    math = [
+      canvas_width / 100,
+      canvas_width / 45,
+      canvas_x * .4,
+      canvas_x * 1.6,
+      canvas_height / 100,
+      canvas_x * .9,
+      canvas_x * .7,
+      canvas_height / 7,
+    ];
+
     trees = [];
 
     var a = canvas_y * .75;
@@ -313,5 +316,5 @@ function resize_logic(){
 
 var gradient_ground = 0;
 var gradient_sky = 0;
-var snowflakes = [];
+var math = [];
 var trees = [];
