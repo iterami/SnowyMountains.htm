@@ -188,7 +188,6 @@ function logic(){
             'x': core_random_integer({
               'max': canvas_width,
             }),
-            'y': 0,
           },
         });
     }while(loop_counter--);
