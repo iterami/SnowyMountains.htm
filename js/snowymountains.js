@@ -11,8 +11,6 @@ function draw_logic(){
     );
 
     // Draw mountains with gradient fillstyle.
-    var j = canvas_y * .25;
-    var k = canvas_y * .3;
     var loop_counter = 2;
     var vertices = [];
     do{
@@ -24,9 +22,9 @@ function draw_logic(){
             math[3],
           ][loop_counter],
           'y': [
-            canvas_y * .4,
-            j,
-            k,
+            math[10],
+            math[8],
+            math[9],
           ][loop_counter],
         });
         vertices.push({
@@ -192,19 +190,17 @@ function logic(){
         });
     }while(loop_counter--);
 
+    // Update snowflake positions.
     for(var entity in core_entities){
+        core_entities[entity]['x'] += Math.random() * 2 - 1;
+        core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
+
         if(core_entities[entity]['y'] > canvas_height){
-            // Remove snowflake that reached bottom of screen.
             core_entity_remove({
               'entities': [
                 entity,
               ],
             });
-
-        }else{
-            // Update snowflake position.
-            core_entities[entity]['x'] += Math.random() * 2 - 1;
-            core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
         }
     }
 }
@@ -230,6 +226,9 @@ function resize_logic(){
       canvas_x * .9,
       canvas_x * .7,
       canvas_height / 7,
+      canvas_y * .25,
+      canvas_y * .3,
+      canvas_y * .4,
     ];
 
     trees = [];
@@ -294,7 +293,7 @@ function resize_logic(){
       ],
       'width': canvas_x,
       'x': canvas_x,
-      'y': canvas_y * .4,
+      'y': math[10],
     });
     gradient_sky = canvas_gradient({
       'height': canvas_y,
