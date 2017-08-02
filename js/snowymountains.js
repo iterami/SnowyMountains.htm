@@ -159,16 +159,21 @@ function draw_logic(){
         });
     }while(loop_counter--);
 
-    canvas_buffer.fillStyle = '#fff';
     // Draw snowflakes.
-    for(var entity in core_entities){
-        canvas_buffer.fillRect(
-          core_entities[entity]['x'],
-          core_entities[entity]['y'],
-          core_entities[entity]['size'],
-          core_entities[entity]['size']
-        );
-    }
+    canvas_buffer.fillStyle = '#fff';
+    core_group_modify({
+      'groups': [
+        'snowflake',
+      ],
+      'todo': function(entity){
+          canvas_buffer.fillRect(
+            core_entities[entity]['x'],
+            core_entities[entity]['y'],
+            core_entities[entity]['size'],
+            core_entities[entity]['size']
+          );
+      },
+    });
 }
 
 function logic(){
@@ -187,26 +192,37 @@ function logic(){
               'max': canvas_width,
             }),
           },
+          'types': [
+            'snowflake',
+          ],
         });
     }while(loop_counter--);
 
     // Update snowflake positions.
-    for(var entity in core_entities){
-        core_entities[entity]['x'] += Math.random() * 2 - 1;
-        core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
+    core_group_modify({
+      'groups': [
+        'snowflake',
+      ],
+      'todo': function(entity){
+          core_entities[entity]['x'] += Math.random() * 2 - 1;
+          core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
 
-        if(core_entities[entity]['y'] > canvas_height){
-            core_entity_remove({
-              'entities': [
-                entity,
-              ],
-            });
-        }
-    }
+          if(core_entities[entity]['y'] > canvas_height){
+              core_entity_remove({
+                'entities': [
+                  entity,
+                ],
+              });
+          }
+      },
+    });
 }
 
 function repo_init(){
     core_repo_init({
+      'entities': {
+        'snowflake': {},
+      },
       'title': 'SnowyMountains.htm',
     });
 
