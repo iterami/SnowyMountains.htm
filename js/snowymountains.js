@@ -2,7 +2,11 @@
 
 function draw_logic(){
     // Draw sky gradient.
-    canvas_buffer.fillStyle = gradient_sky;
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': gradient_sky,
+      },
+    });
     canvas_buffer.fillRect(
       0,
       0,
@@ -57,11 +61,19 @@ function draw_logic(){
     });
 
     // Draw ground gradient.
-    canvas_buffer.fillStyle = gradient_ground;
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': gradient_ground,
+      },
+    });
     canvas_buffer.fill();
 
     // Draw tree trunks.
-    canvas_buffer.fillStyle = '#930';
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': '#930',
+      },
+    });
     for(var tree in trees){
         canvas_buffer.fillRect(
           canvas_width * trees[tree][0] - math[0] * 2,
@@ -120,7 +132,11 @@ function draw_logic(){
     }while(loop_counter--);
 
     // Draw red ornaments on top of wreathe.
-    canvas_buffer.fillStyle = '#f00';
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': '#f00',
+      },
+    });
     loop_counter = 7;
     do{
         canvas_draw_path({
@@ -160,7 +176,11 @@ function draw_logic(){
     }while(loop_counter--);
 
     // Draw snowflakes.
-    canvas_buffer.fillStyle = '#fff';
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': '#fff',
+      },
+    });
     core_group_modify({
       'groups': [
         'snowflake',
