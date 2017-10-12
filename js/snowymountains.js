@@ -10,7 +10,7 @@ function draw_logic(){
     canvas_buffer.fillRect(
       0,
       0,
-      canvas_width,
+      canvas_properties['width'],
       canvas_y
     );
 
@@ -76,7 +76,7 @@ function draw_logic(){
     });
     for(var tree in trees){
         canvas_buffer.fillRect(
-          canvas_width * trees[tree][0] - math[0] * 2,
+          canvas_properties['width'] * trees[tree][0] - math[0] * 2,
           trees[tree][1],
           math[0] * trees[tree][2],
           math[0] * trees[tree][2]
@@ -93,15 +93,15 @@ function draw_logic(){
           'vertices': [
             {
               'type': 'moveTo',
-              'x': canvas_width * trees[loop_counter][0],
+              'x': canvas_properties['width'] * trees[loop_counter][0],
               'y': trees[loop_counter][1] - math[7] * trees[loop_counter][2],
             },
             {
-              'x': canvas_width * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
+              'x': canvas_properties['width'] * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
               'y': trees[loop_counter][1] + 1,
             },
             {
-              'x': canvas_width * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
+              'x': canvas_properties['width'] * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
               'y': trees[loop_counter][1] + 1,
             },
           ],
@@ -121,10 +121,10 @@ function draw_logic(){
           'vertices': [
             {
               'endAngle': math_tau,
-              'radius': canvas_height / (40 - 20 * loop_counter),
+              'radius': canvas_properties['height'] / (40 - 20 * loop_counter),
               'startAngle': 0,
               'type': 'arc',
-              'x': canvas_width * trees[0][0],
+              'x': canvas_properties['width'] * trees[0][0],
               'y': trees[0][1] - math[7],
             },
           ],
@@ -146,7 +146,7 @@ function draw_logic(){
               'radius': math[4],
               'startAngle': 0,
               'type': 'arc',
-              'x': canvas_width * trees[0][0] + math[4] * (
+              'x': canvas_properties['width'] * trees[0][0] + math[4] * (
                 [
                   -3.7,
                   -2.7,
@@ -209,7 +209,7 @@ function logic(){
               'max': 4,
             }),
             'x': core_random_integer({
-              'max': canvas_width,
+              'max': canvas_properties['width'],
             }),
           },
           'types': [
@@ -227,7 +227,7 @@ function logic(){
           core_entities[entity]['x'] += Math.random() * 2 - 1;
           core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
 
-          if(core_entities[entity]['y'] > canvas_height){
+          if(core_entities[entity]['y'] > canvas_properties['height']){
               core_entity_remove({
                 'entities': [
                   entity,
@@ -254,14 +254,14 @@ function repo_init(){
 function resize_logic(){
     // Precalculate stuff.
     math = [
-      canvas_width / 100,
-      canvas_width / 45,
+      canvas_properties['width'] / 100,
+      canvas_properties['width'] / 45,
       canvas_x * .4,
       canvas_x * 1.6,
-      canvas_height / 100,
+      canvas_properties['height'] / 100,
       canvas_x * .9,
       canvas_x * .7,
-      canvas_height / 7,
+      canvas_properties['height'] / 7,
       canvas_y * .25,
       canvas_y * .3,
       canvas_y * .4,
