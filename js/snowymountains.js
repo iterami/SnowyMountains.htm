@@ -11,7 +11,7 @@ function draw_logic(){
       0,
       0,
       canvas_properties['width'],
-      canvas_y
+      canvas_properties['height-half']
     );
 
     // Draw mountains with gradient fillstyle.
@@ -21,7 +21,7 @@ function draw_logic(){
         vertices.push({
           'type': 'moveTo',
           'x': [
-            canvas_x,
+            canvas_properties['width-half'],
             math[2],
             math[3],
           ][loop_counter],
@@ -33,7 +33,7 @@ function draw_logic(){
         });
         vertices.push({
           'x': [
-            canvas_x,
+            canvas_properties['width-half'],
             math[2],
             math[3],
           ][loop_counter] + [
@@ -41,11 +41,11 @@ function draw_logic(){
             math[6],
             math[5],
           ][loop_counter],
-          'y': canvas_y,
+          'y': canvas_properties['height-half'],
         });
         vertices.push({
           'x': [
-            canvas_x,
+            canvas_properties['width-half'],
             0,
             math[3],
           ][loop_counter] - [
@@ -53,7 +53,7 @@ function draw_logic(){
             math[6],
             math[5],
           ][loop_counter],
-          'y': canvas_y,
+          'y': canvas_properties['height-half'],
         });
     }while(loop_counter--);
     canvas_draw_path({
@@ -256,21 +256,21 @@ function resize_logic(){
     math = [
       canvas_properties['width'] / 100,
       canvas_properties['width'] / 45,
-      canvas_x * .4,
-      canvas_x * 1.6,
+      canvas_properties['width-half'] * .4,
+      canvas_properties['width-half'] * 1.6,
       canvas_properties['height'] / 100,
-      canvas_x * .9,
-      canvas_x * .7,
+      canvas_properties['width-half'] * .9,
+      canvas_properties['width-half'] * .7,
       canvas_properties['height'] / 7,
-      canvas_y * .25,
-      canvas_y * .3,
-      canvas_y * .4,
+      canvas_properties['height-half'] * .25,
+      canvas_properties['height-half'] * .3,
+      canvas_properties['height-half'] * .4,
     ];
 
     trees = [];
 
-    var a = canvas_y * .75;
-    var k = canvas_y * .35;
+    var a = canvas_properties['height-half'] * .75;
+    var k = canvas_properties['height-half'] * .35;
     var j = 0;
 
     // Create 300 trees.
@@ -278,24 +278,24 @@ function resize_logic(){
     do{
         if(loop_counter > 200){
             j = core_random_integer({
-              'max': canvas_y * 1.1,
+              'max': canvas_properties['height-half'] * 1.1,
             }) + a;
 
         }else if(loop_counter > 10){
             j = core_random_integer({
-              'max': canvas_y * .7,
+              'max': canvas_properties['height-half'] * .7,
             }) + a;
 
         }else{
             j = core_random_integer({
-              'max': canvas_y * .2,
+              'max': canvas_properties['height-half'] * .2,
             }) + a;
         }
 
         trees.push([
           Math.random(),
           j,
-          -(canvas_y / 2 - j) / k,
+          -(canvas_properties['height-half'] / 2 - j) / k,
           '#' + core_random_integer({
               'max': 5,
             })
@@ -317,7 +317,7 @@ function resize_logic(){
 
     // Create gradients.
     gradient_ground = canvas_gradient({
-      'height': canvas_y * .65,
+      'height': canvas_properties['height-half'] * .65,
       'stops': [
         {
           'color': '#eee',
@@ -327,12 +327,12 @@ function resize_logic(){
           'offset': 1,
         },
       ],
-      'width': canvas_x,
-      'x': canvas_x,
+      'width': canvas_properties['width-half'],
+      'x': canvas_properties['width-half'],
       'y': math[10],
     });
     gradient_sky = canvas_gradient({
-      'height': canvas_y,
+      'height': canvas_properties['height-half'],
       'stops': [
         {
           'color': '#ccc',
@@ -342,8 +342,8 @@ function resize_logic(){
           'offset': 1,
         },
       ],
-      'width': canvas_x,
-      'x': canvas_x,
+      'width': canvas_properties['width-half'],
+      'x': canvas_properties['width-half'],
       'y': 10,
     });
 }
