@@ -243,6 +243,12 @@ function repo_init(){
       'entities': {
         'snowflake': {},
       },
+      'globals': {
+        'gradient_ground': 0,
+        'gradient_sky': 0,
+        'math': [],
+        'trees': [],
+      },
       'title': 'SnowyMountains.htm',
     });
 
@@ -347,8 +353,3 @@ function resize_logic(){
       'y': 10,
     });
 }
-
-var gradient_ground = 0;
-var gradient_sky = 0;
-var math = [];
-var trees = [];
