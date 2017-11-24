@@ -251,10 +251,9 @@ function repo_init(){
       },
       'title': 'SnowyMountains.htm',
     });
-
-    document.body.style.background = '#fff';
-
     canvas_init();
+
+    canvas_properties['clearColor'] = '#fff';
 }
 
 function resize_logic(){
