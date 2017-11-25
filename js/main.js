@@ -314,7 +314,7 @@ function resize_logic(){
     }while(loop_counter--);
 
     // Sort trees so closer trees are drawn on top.
-    sort_property({
+    core_sort_property({
       'array': trees,
       'property': 2,
       'reverse': true,
