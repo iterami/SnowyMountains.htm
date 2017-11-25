@@ -120,7 +120,7 @@ function draw_logic(){
           },
           'vertices': [
             {
-              'endAngle': math_tau,
+              'endAngle': core_tau,
               'radius': canvas_properties['height'] / (40 - 20 * loop_counter),
               'startAngle': 0,
               'type': 'arc',
@@ -142,7 +142,7 @@ function draw_logic(){
         canvas_draw_path({
           'vertices': [
             {
-              'endAngle': math_tau,
+              'endAngle': core_tau,
               'radius': math[4],
               'startAngle': 0,
               'type': 'arc',
