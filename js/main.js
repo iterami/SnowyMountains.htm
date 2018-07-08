@@ -15,8 +15,8 @@ function draw_logic(){
     );
 
     // Draw mountains with gradient fillstyle.
-    var loop_counter = 2;
-    var vertices = [];
+    let loop_counter = 2;
+    let vertices = [];
     do{
         vertices.push({
           'type': 'moveTo',
@@ -74,7 +74,7 @@ function draw_logic(){
         'fillStyle': '#930',
       },
     });
-    for(var tree in trees){
+    for(let tree in trees){
         canvas_buffer.fillRect(
           canvas_properties['width'] * trees[tree][0] - math[0] * 2,
           trees[tree][1],
@@ -198,7 +198,7 @@ function draw_logic(){
 
 function logic(){
     // Add 2 snowflakes.
-    var loop_counter = 1;
+    let loop_counter = 1;
     do{
         core_entity_create({
           'properties': {
@@ -274,12 +274,12 @@ function resize_logic(){
 
     trees = [];
 
-    var a = canvas_properties['height-half'] * .75;
-    var k = canvas_properties['height-half'] * .35;
-    var j = 0;
+    let a = canvas_properties['height-half'] * .75;
+    let k = canvas_properties['height-half'] * .35;
+    let j = 0;
 
     // Create 300 trees.
-    var loop_counter = 299;
+    let loop_counter = 299;
     do{
         if(loop_counter > 200){
             j = core_random_integer({
