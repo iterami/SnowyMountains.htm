@@ -22,24 +22,24 @@ function draw_logic(){
           'type': 'moveTo',
           'x': [
             canvas_properties['width-half'],
-            math[2],
-            math[3],
+            math['mountain-left-x'],
+            math['mountain-right-x'],
           ][loop_counter],
           'y': [
-            math[10],
-            math[8],
-            math[9],
+            math['mountain-middle-y'],
+            math['mountain-left-y'],
+            math['mountain-right-y'],
           ][loop_counter],
         });
         vertices.push({
           'x': [
             canvas_properties['width-half'],
-            math[2],
-            math[3],
+            math['mountain-left-x'],
+            math['mountain-right-x'],
           ][loop_counter] + [
-            math[5],
-            math[6],
-            math[5],
+            math['mountain-right-width'],
+            math['mountain-left-width'],
+            math['mountain-right-width'],
           ][loop_counter],
           'y': canvas_properties['height-half'],
         });
@@ -47,11 +47,11 @@ function draw_logic(){
           'x': [
             canvas_properties['width-half'],
             0,
-            math[3],
+            math['mountain-right-x'],
           ][loop_counter] - [
-            math[6],
-            math[6],
-            math[5],
+            math['mountain-left-width'],
+            math['mountain-left-width'],
+            math['mountain-right-width'],
           ][loop_counter],
           'y': canvas_properties['height-half'],
         });
@@ -76,10 +76,10 @@ function draw_logic(){
     });
     for(let tree in trees){
         canvas_buffer.fillRect(
-          canvas_properties['width'] * trees[tree][0] - math[0] * 2,
+          canvas_properties['width'] * trees[tree][0] - math['stump-width'] * 2,
           trees[tree][1],
-          math[0] * trees[tree][2],
-          math[0] * trees[tree][2]
+          math['stump-width'] * trees[tree][2],
+          math['stump-width'] * trees[tree][2]
         );
     }
 
@@ -94,14 +94,14 @@ function draw_logic(){
             {
               'type': 'moveTo',
               'x': canvas_properties['width'] * trees[loop_counter][0],
-              'y': trees[loop_counter][1] - math[7] * trees[loop_counter][2],
+              'y': trees[loop_counter][1] - math['tree-height'] * trees[loop_counter][2],
             },
             {
-              'x': canvas_properties['width'] * trees[loop_counter][0] + math[1] * trees[loop_counter][2],
+              'x': canvas_properties['width'] * trees[loop_counter][0] + math['tree-width'] * trees[loop_counter][2],
               'y': trees[loop_counter][1] + 1,
             },
             {
-              'x': canvas_properties['width'] * trees[loop_counter][0] - math[1] * trees[loop_counter][2],
+              'x': canvas_properties['width'] * trees[loop_counter][0] - math['tree-width'] * trees[loop_counter][2],
               'y': trees[loop_counter][1] + 1,
             },
           ],
@@ -125,7 +125,7 @@ function draw_logic(){
               'startAngle': 0,
               'type': 'arc',
               'x': canvas_properties['width'] * trees[0][0],
-              'y': trees[0][1] - math[7],
+              'y': trees[0][1] - math['tree-height'],
             },
           ],
         });
@@ -143,10 +143,10 @@ function draw_logic(){
           'vertices': [
             {
               'endAngle': core_tau,
-              'radius': math[4],
+              'radius': math['wreathe-red'],
               'startAngle': 0,
               'type': 'arc',
-              'x': canvas_properties['width'] * trees[0][0] + math[4] * (
+              'x': canvas_properties['width'] * trees[0][0] + math['wreathe-red'] * (
                 [
                   -3.7,
                   -2.7,
@@ -158,7 +158,7 @@ function draw_logic(){
                   -2.7,
                 ][loop_counter]
               ),
-              'y': trees[0][1] - math[7] + math[4] * (
+              'y': trees[0][1] - math['tree-height'] + math['wreathe-red'] * (
                 [
                   0,
                   -2.7,
@@ -258,29 +258,29 @@ function repo_init(){
 
 function resize_logic(){
     // Precalculate stuff.
-    math = [
-      canvas_properties['width'] / 100,
-      canvas_properties['width'] / 45,
-      canvas_properties['width-half'] * .4,
-      canvas_properties['width-half'] * 1.6,
-      canvas_properties['height'] / 100,
-      canvas_properties['width-half'] * .9,
-      canvas_properties['width-half'] * .7,
-      canvas_properties['height'] / 7,
-      canvas_properties['height-half'] * .25,
-      canvas_properties['height-half'] * .3,
-      canvas_properties['height-half'] * .4,
-    ];
+    math = {
+      'mountain-left-width': canvas_properties['width-half'] * .7,
+      'mountain-left-x': canvas_properties['width-half'] * .4,
+      'mountain-left-y': canvas_properties['height-half'] * .25,
+      'mountain-middle-y': canvas_properties['height-half'] * .4,		// 10	middle mountain distance from top
+      'mountain-right-width': canvas_properties['width-half'] * .9,
+      'mountain-right-x': canvas_properties['width-half'] * 1.6,
+      'mountain-right-y': canvas_properties['height-half'] * .3,
+      'stump-width': canvas_properties['width'] / 100,
+      'tree-height': canvas_properties['height'] / 7,
+      'tree-width': canvas_properties['width'] / 45,
+      'wreathe-red': canvas_properties['height'] / 100,
+    };
 
     trees = [];
 
-    let tree_height_inverse = canvas_properties['height-half'] * .35;
-    let tree_y = 0;
     let tree_y_offset = canvas_properties['height-half'] * .75;
 
     // Create 300 trees.
     let loop_counter = 299;
     do{
+        let tree_y = 0;
+
         if(loop_counter > 200){
             tree_y = core_random_integer({
               'max': canvas_properties['height-half'] * 1.1,
@@ -300,7 +300,7 @@ function resize_logic(){
         trees.push([
           Math.random(),
           tree_y,
-          -(canvas_properties['height-half'] / 2 - tree_y) / tree_height_inverse,
+          -(canvas_properties['height-half'] / 2 - tree_y) / (canvas_properties['height-half'] * .35),
           '#' + core_random_integer({
               'max': 5,
             })
@@ -334,7 +334,7 @@ function resize_logic(){
       ],
       'width': canvas_properties['width-half'],
       'x': canvas_properties['width-half'],
-      'y': math[10],
+      'y': math['mountain-middle-y'],
     });
     gradient_sky = canvas_gradient({
       'height': canvas_properties['height-half'],
