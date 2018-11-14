@@ -262,7 +262,7 @@ function resize_logic(){
       'mountain-left-width': canvas_properties['width-half'] * .7,
       'mountain-left-x': canvas_properties['width-half'] * .4,
       'mountain-left-y': canvas_properties['height-half'] * .25,
-      'mountain-middle-y': canvas_properties['height-half'] * .4,		// 10	middle mountain distance from top
+      'mountain-middle-y': canvas_properties['height-half'] * .4,
       'mountain-right-width': canvas_properties['width-half'] * .9,
       'mountain-right-x': canvas_properties['width-half'] * 1.6,
       'mountain-right-y': canvas_properties['height-half'] * .3,
