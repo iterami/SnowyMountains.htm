@@ -274,33 +274,33 @@ function resize_logic(){
 
     trees = [];
 
-    let a = canvas_properties['height-half'] * .75;
-    let k = canvas_properties['height-half'] * .35;
-    let j = 0;
+    let tree_height_inverse = canvas_properties['height-half'] * .35;
+    let tree_y = 0;
+    let tree_y_offset = canvas_properties['height-half'] * .75;
 
     // Create 300 trees.
     let loop_counter = 299;
     do{
         if(loop_counter > 200){
-            j = core_random_integer({
+            tree_y = core_random_integer({
               'max': canvas_properties['height-half'] * 1.1,
-            }) + a;
+            }) + tree_y_offset;
 
         }else if(loop_counter > 10){
-            j = core_random_integer({
+            tree_y = core_random_integer({
               'max': canvas_properties['height-half'] * .7,
-            }) + a;
+            }) + tree_y_offset;
 
         }else{
-            j = core_random_integer({
+            tree_y = core_random_integer({
               'max': canvas_properties['height-half'] * .2,
-            }) + a;
+            }) + tree_y_offset;
         }
 
         trees.push([
           Math.random(),
-          j,
-          -(canvas_properties['height-half'] / 2 - j) / k,
+          tree_y,
+          -(canvas_properties['height-half'] / 2 - tree_y) / tree_height_inverse,
           '#' + core_random_integer({
               'max': 5,
             })
