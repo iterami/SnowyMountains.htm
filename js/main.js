@@ -114,16 +114,16 @@ function draw_logic(){
         'fillStyle': '#fff',
       },
     });
-    core_group_modify({
+    entity_group_modify({
       'groups': [
         'snowflake',
       ],
       'todo': function(entity){
           canvas_buffer.fillRect(
-            core_entities[entity]['x'],
-            core_entities[entity]['y'],
-            core_entities[entity]['size'],
-            core_entities[entity]['size']
+            entity_entities[entity]['x'],
+            entity_entities[entity]['y'],
+            entity_entities[entity]['size'],
+            entity_entities[entity]['size']
           );
       },
     });
@@ -133,7 +133,7 @@ function logic(){
     // Add 2 snowflakes.
     let loop_counter = 1;
     do{
-        core_entity_create({
+        entity_create({
           'properties': {
             'size': core_random_integer({
               'max': 2,
@@ -152,16 +152,16 @@ function logic(){
     }while(loop_counter--);
 
     // Update snowflake positions.
-    core_group_modify({
+    entity_group_modify({
       'groups': [
         'snowflake',
       ],
       'todo': function(entity){
-          core_entities[entity]['x'] += Math.random() * 2 - 1;
-          core_entities[entity]['y'] += Math.random() * 4 + core_entities[entity]['speed'];
+          entity_entities[entity]['x'] += Math.random() * 2 - 1;
+          entity_entities[entity]['y'] += Math.random() * 4 + entity_entities[entity]['speed'];
 
-          if(core_entities[entity]['y'] > canvas_properties['height']){
-              core_entity_remove({
+          if(entity_entities[entity]['y'] > canvas_properties['height']){
+              entity_remove({
                 'entities': [
                   entity,
                 ],
@@ -173,9 +173,6 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
-      'entities': {
-        'snowflake': {},
-      },
       'globals': {
         'gradient_ground': 0,
         'gradient_sky': 0,
@@ -183,6 +180,9 @@ function repo_init(){
         'trees': [],
       },
       'title': 'SnowyMountains.htm',
+    });
+    entity_set({
+      'type': 'snowflake',
     });
     canvas_init();
 
