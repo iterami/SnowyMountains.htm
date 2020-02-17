@@ -16,7 +16,7 @@ function draw_logic(){
 
     // Draw mountains with gradient fillstyle.
     let loop_counter = 2;
-    let vertices = [];
+    const vertices = [];
     do{
         vertices.push({
           'type': 'moveTo',
@@ -74,7 +74,7 @@ function draw_logic(){
         'fillStyle': '#930',
       },
     });
-    for(let tree in trees){
+    for(const tree in trees){
         canvas_buffer.fillRect(
           canvas_properties['width'] * trees[tree][0] - math['stump-width'] * 2,
           trees[tree][1],
@@ -207,7 +207,7 @@ function resize_logic(){
 
     trees = [];
 
-    let tree_y_offset = canvas_properties['height-half'] * .75;
+    const tree_y_offset = canvas_properties['height-half'] * .75;
 
     // Create 300 trees.
     let loop_counter = 299;
