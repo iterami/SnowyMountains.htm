@@ -1,6 +1,6 @@
 'use strict';
 
-function draw_logic(){
+function repo_drawlogic(){
     // Draw sky gradient.
     canvas_setproperties({
       'properties': {
@@ -129,7 +129,7 @@ function draw_logic(){
     });
 }
 
-function logic(){
+function repo_logic(){
     // Add 2 snowflakes.
     let loop_counter = 1;
     do{
@@ -189,7 +189,7 @@ function repo_init(){
     canvas_properties['clearColor'] = '#fff';
 }
 
-function resize_logic(){
+function repo_resizelogic(){
     // Precalculate stuff.
     math = {
       'mountain-left-width': canvas_properties['width-half'] * .7,
