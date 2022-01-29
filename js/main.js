@@ -1,7 +1,6 @@
 'use strict';
 
 function repo_drawlogic(){
-    // Draw sky gradient.
     canvas_setproperties({
       'properties': {
         'fillStyle': gradient_sky,
@@ -14,7 +13,6 @@ function repo_drawlogic(){
       canvas_properties['height-half']
     );
 
-    // Draw mountains with gradient fillstyle.
     let loop_counter = 2;
     const vertices = [];
     do{
@@ -60,7 +58,6 @@ function repo_drawlogic(){
       'vertices': vertices,
     });
 
-    // Draw ground gradient.
     canvas_setproperties({
       'properties': {
         'fillStyle': gradient_ground,
@@ -68,7 +65,6 @@ function repo_drawlogic(){
     });
     canvas_buffer.fill();
 
-    // Draw tree trunks.
     canvas_setproperties({
       'properties': {
         'fillStyle': '#930',
@@ -83,7 +79,6 @@ function repo_drawlogic(){
         );
     }
 
-    // Draw tree leaves.
     loop_counter = trees.length - 1;
     do{
         canvas_draw_path({
@@ -108,7 +103,6 @@ function repo_drawlogic(){
         });
     }while(loop_counter--);
 
-    // Draw snowflakes.
     canvas_setproperties({
       'properties': {
         'fillStyle': '#fff',
@@ -130,7 +124,6 @@ function repo_drawlogic(){
 }
 
 function repo_logic(){
-    // Add 2 snowflakes.
     let loop_counter = 1;
     do{
         entity_create({
@@ -151,7 +144,6 @@ function repo_logic(){
         });
     }while(loop_counter--);
 
-    // Update snowflake positions.
     entity_group_modify({
       'groups': [
         'snowflake',
@@ -190,7 +182,6 @@ function repo_init(){
 }
 
 function repo_resizelogic(){
-    // Precalculate stuff.
     math = {
       'mountain-left-width': canvas_properties['width-half'] * .7,
       'mountain-left-x': canvas_properties['width-half'] * .4,
@@ -209,7 +200,6 @@ function repo_resizelogic(){
 
     const tree_y_offset = canvas_properties['height-half'] * .75;
 
-    // Create 300 trees.
     let loop_counter = 299;
     do{
         let tree_y = 0;
@@ -246,14 +236,12 @@ function repo_resizelogic(){
         ]);
     }while(loop_counter--);
 
-    // Sort trees so closer trees are drawn on top.
     trees = core_sort_property({
       'array': trees,
       'property': 2,
       'reverse': true,
     });
 
-    // Create gradients.
     gradient_ground = canvas_gradient({
       'height': canvas_properties['height-half'] * .65,
       'stops': [
