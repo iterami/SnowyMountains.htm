@@ -6,7 +6,7 @@ function repo_drawlogic(){
         'fillStyle': gradient_sky,
       },
     });
-    canvas_buffer.fillRect(
+    canvas.fillRect(
       0,
       0,
       canvas_properties['width'],
@@ -63,7 +63,7 @@ function repo_drawlogic(){
         'fillStyle': gradient_ground,
       },
     });
-    canvas_buffer.fill();
+    canvas.fill();
 
     canvas_setproperties({
       'properties': {
@@ -71,7 +71,7 @@ function repo_drawlogic(){
       },
     });
     for(const tree in trees){
-        canvas_buffer.fillRect(
+        canvas.fillRect(
           canvas_properties['width'] * trees[tree][0] - math['stump-width'] * 2,
           trees[tree][1],
           math['stump-width'] * trees[tree][2],
@@ -113,7 +113,7 @@ function repo_drawlogic(){
         'snowflake',
       ],
       'todo': function(entity){
-          canvas_buffer.fillRect(
+          canvas.fillRect(
             entity_entities[entity]['x'],
             entity_entities[entity]['y'],
             entity_entities[entity]['size'],
