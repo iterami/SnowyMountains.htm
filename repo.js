@@ -2,9 +2,7 @@
 
 function repo_drawlogic(){
     canvas_setproperties({
-      'properties': {
-        'fillStyle': gradient_sky,
-      },
+      'fillStyle': gradient_sky,
     });
     canvas.fillRect(
       0,
@@ -59,16 +57,12 @@ function repo_drawlogic(){
     });
 
     canvas_setproperties({
-      'properties': {
-        'fillStyle': gradient_ground,
-      },
+      'fillStyle': gradient_ground,
     });
     canvas.fill();
 
     canvas_setproperties({
-      'properties': {
-        'fillStyle': '#930',
-      },
+      'fillStyle': '#930',
     });
     for(const tree in trees){
         canvas.fillRect(
@@ -104,9 +98,7 @@ function repo_drawlogic(){
     }while(loop_counter--);
 
     canvas_setproperties({
-      'properties': {
-        'fillStyle': '#fff',
-      },
+      'fillStyle': '#fff',
     });
     entity_group_modify({
       'groups': [
