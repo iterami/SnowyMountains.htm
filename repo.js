@@ -14,21 +14,21 @@ function repo_drawlogic(){
     let loop_counter = 2;
     const vertices = [];
     do{
-        vertices.push({
-          'type': 'moveTo',
-          'x': [
+        vertices.push([
+          'moveTo',
+          [
             canvas_properties['width-half'],
             math['mountain-left-x'],
             math['mountain-right-x'],
           ][loop_counter],
-          'y': [
+          [
             math['mountain-middle-y'],
             math['mountain-left-y'],
             math['mountain-right-y'],
           ][loop_counter],
-        });
-        vertices.push({
-          'x': [
+        ],[
+          'lineTo',
+          [
             canvas_properties['width-half'],
             math['mountain-left-x'],
             math['mountain-right-x'],
@@ -37,10 +37,10 @@ function repo_drawlogic(){
             math['mountain-left-width'],
             math['mountain-right-width'],
           ][loop_counter],
-          'y': canvas_properties['height-half'],
-        });
-        vertices.push({
-          'x': [
+          canvas_properties['height-half'],
+        ],[
+          'lineTo',
+          [
             canvas_properties['width-half'],
             0,
             math['mountain-right-x'],
@@ -49,8 +49,8 @@ function repo_drawlogic(){
             math['mountain-left-width'],
             math['mountain-right-width'],
           ][loop_counter],
-          'y': canvas_properties['height-half'],
-        });
+          canvas_properties['height-half'],
+        ]);
     }while(loop_counter--);
     canvas_draw_path({
       'vertices': vertices,
@@ -80,19 +80,21 @@ function repo_drawlogic(){
             'fillStyle': trees[loop_counter][3],
           },
           'vertices': [
-            {
-              'type': 'moveTo',
-              'x': canvas_properties['width'] * trees[loop_counter][0],
-              'y': trees[loop_counter][1] - math['tree-height'] * trees[loop_counter][2],
-            },
-            {
-              'x': canvas_properties['width'] * trees[loop_counter][0] + math['tree-width'] * trees[loop_counter][2],
-              'y': trees[loop_counter][1] + 1,
-            },
-            {
-              'x': canvas_properties['width'] * trees[loop_counter][0] - math['tree-width'] * trees[loop_counter][2],
-              'y': trees[loop_counter][1] + 1,
-            },
+            [
+              'moveTo',
+              canvas_properties['width'] * trees[loop_counter][0],
+              trees[loop_counter][1] - math['tree-height'] * trees[loop_counter][2],
+            ],
+            [
+              'lineTo',
+              canvas_properties['width'] * trees[loop_counter][0] + math['tree-width'] * trees[loop_counter][2],
+              trees[loop_counter][1] + 1,
+            ],
+            [
+              'lineTo',
+              canvas_properties['width'] * trees[loop_counter][0] - math['tree-width'] * trees[loop_counter][2],
+              trees[loop_counter][1] + 1,
+            ],
           ],
         });
     }while(loop_counter--);
