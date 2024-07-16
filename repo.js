@@ -238,7 +238,12 @@ function repo_resizelogic(){
     });
 
     gradient_ground = canvas_gradient({
-      'height': canvas_properties['height-half'] * .65,
+      'args': [
+        canvas_properties['width-half'],
+        math['mountain-middle-y'],
+        canvas_properties['width-half'],
+        canvas_properties['height-half'] * .65,
+      ],
       'stops': [
         {
           'color': '#eee',
@@ -248,12 +253,14 @@ function repo_resizelogic(){
           'offset': 1,
         },
       ],
-      'width': canvas_properties['width-half'],
-      'x': canvas_properties['width-half'],
-      'y': math['mountain-middle-y'],
     });
     gradient_sky = canvas_gradient({
-      'height': canvas_properties['height-half'],
+      'args': [
+        canvas_properties['width-half'],
+        10,
+        canvas_properties['width-half'],
+        canvas_properties['height-half'],
+      ],
       'stops': [
         {
           'color': '#ccc',
@@ -263,8 +270,5 @@ function repo_resizelogic(){
           'offset': 1,
         },
       ],
-      'width': canvas_properties['width-half'],
-      'x': canvas_properties['width-half'],
-      'y': 10,
     });
 }
