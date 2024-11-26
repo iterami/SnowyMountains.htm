@@ -184,9 +184,15 @@ function repo_resizelogic(){
       'mountain-right-width': canvas_properties['width-half'] * .9,
       'mountain-right-x': canvas_properties['width-half'] * 1.6,
       'mountain-right-y': canvas_properties['height-half'] * .3,
-      'stump-width': canvas_properties['width'] / 100,
+      'stump-width': Math.max(
+        canvas_properties['width'] / 100,
+        5
+      ),
       'tree-height': canvas_properties['height'] / 7,
-      'tree-width': canvas_properties['width'] / 45,
+      'tree-width': Math.max(
+        canvas_properties['width'] / 45,
+        15
+      ),
       'wreathe-red': canvas_properties['height'] / 100,
     };
 
@@ -194,26 +200,12 @@ function repo_resizelogic(){
 
     const tree_y_offset = canvas_properties['height-half'] * .75;
 
-    let loop_counter = 299;
+    const treecount = Math.floor(canvas_properties['width-half'] / 2);
+    let loop_counter = treecount;
     do{
-        let tree_y = 0;
-
-        if(loop_counter > 200){
-            tree_y = core_random_integer({
-              'max': canvas_properties['height-half'] * 1.1,
-            }) + tree_y_offset;
-
-        }else if(loop_counter > 10){
-            tree_y = core_random_integer({
-              'max': canvas_properties['height-half'] * .7,
-            }) + tree_y_offset;
-
-        }else{
-            tree_y = core_random_integer({
-              'max': canvas_properties['height-half'] * .2,
-            }) + tree_y_offset;
-        }
-
+        const tree_y = core_random_integer({
+          'max': canvas_properties['height-half'] * (loop_counter > treecount * .7 ? 1.1 : .7),
+        }) + tree_y_offset;
         trees.push([
           Math.random(),
           tree_y,
