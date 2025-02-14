@@ -186,12 +186,12 @@ function repo_resizelogic(){
       'mountain-right-y': canvas_properties['height-half'] * .3,
       'stump-width': Math.max(
         canvas_properties['width'] / 100,
-        5
+        10
       ),
       'tree-height': canvas_properties['height'] / 7,
       'tree-width': Math.max(
         canvas_properties['width'] / 45,
-        15
+        25
       ),
       'wreathe-red': canvas_properties['height'] / 100,
     };
