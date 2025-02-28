@@ -196,7 +196,7 @@ function repo_resizelogic(){
       'wreathe-red': canvas_properties['height'] / 100,
     };
 
-    trees.length = 0;
+    core_object_reset(trees);
 
     const tree_y_offset = canvas_properties['height-half'] * .75;
 
