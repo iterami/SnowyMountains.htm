@@ -108,10 +108,10 @@ function repo_drawlogic(){
       ],
       'todo': function(entity){
           canvas.fillRect(
-            entity_entities[entity]['x'],
-            entity_entities[entity]['y'],
-            entity_entities[entity]['size'],
-            entity_entities[entity]['size']
+            entity['x'],
+            entity['y'],
+            entity['size'],
+            entity['size']
           );
       },
     });
@@ -143,13 +143,13 @@ function repo_logic(){
         'snowflake',
       ],
       'todo': function(entity){
-          entity_entities[entity]['x'] += Math.random() * 2 - 1;
-          entity_entities[entity]['y'] += Math.random() * 4 + entity_entities[entity]['speed'];
+          entity['x'] += Math.random() * 2 - 1;
+          entity['y'] += Math.random() * 4 + entity['speed'];
 
-          if(entity_entities[entity]['y'] > canvas_properties['height']){
+          if(entity['y'] > canvas_properties['height']){
               entity_remove({
                 'entities': [
-                  entity,
+                  entity['id'],
                 ],
               });
           }
