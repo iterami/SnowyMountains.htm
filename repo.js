@@ -117,6 +117,24 @@ function repo_drawlogic(){
     });
 }
 
+function repo_init(){
+    core_repo_init({
+      'globals': {
+        'gradient_ground': 0,
+        'gradient_sky': 0,
+        'math': [],
+        'trees': [],
+      },
+      'title': 'SnowyMountains.htm',
+    });
+    entity_set({
+      'type': 'snowflake',
+    });
+    canvas_init();
+
+    canvas_properties['clearColor'] = '#fff';
+}
+
 function repo_logic(){
     let loop_counter = 1;
     do{
@@ -155,24 +173,6 @@ function repo_logic(){
           }
       },
     });
-}
-
-function repo_init(){
-    core_repo_init({
-      'globals': {
-        'gradient_ground': 0,
-        'gradient_sky': 0,
-        'math': [],
-        'trees': [],
-      },
-      'title': 'SnowyMountains.htm',
-    });
-    entity_set({
-      'type': 'snowflake',
-    });
-    canvas_init();
-
-    canvas_properties['clearColor'] = '#fff';
 }
 
 function repo_resizelogic(){
