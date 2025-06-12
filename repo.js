@@ -140,15 +140,9 @@ function repo_logic(){
     do{
         entity_create({
           'properties': {
-            'size': core_random_integer({
-              'max': 2,
-            }) + 3,
-            'speed': core_random_integer({
-              'max': 4,
-            }),
-            'x': core_random_integer({
-              'max': canvas_properties['width'],
-            }),
+            'size': core_random_integer(2) + 3,
+            'speed': core_random_integer(4),
+            'x': core_random_integer(canvas_properties['width']),
           },
           'types': [
             'snowflake',
@@ -203,22 +197,12 @@ function repo_resizelogic(){
     const treecount = Math.floor(canvas_properties['width-half'] / 2);
     let loop_counter = treecount;
     do{
-        const tree_y = core_random_integer({
-          'max': canvas_properties['height-half'] * (loop_counter > treecount * .7 ? 1.1 : .7),
-        }) + tree_y_offset;
+        const tree_y = core_random_integer(canvas_properties['height-half'] * (loop_counter > treecount * .7 ? 1.1 : .7)) + tree_y_offset;
         trees.push([
           Math.random(),
           tree_y,
           -(canvas_properties['height-half'] / 2 - tree_y) / (canvas_properties['height-half'] * .35),
-          '#' + core_random_integer({
-              'max': 5,
-            })
-            + (core_random_integer({
-              'max': 5,
-            }) + 4)
-            + core_random_integer({
-              'max': 5,
-            }),
+          '#' + core_random_integer(5) + (core_random_integer(5) + 4) + core_random_integer(5),
         ]);
     }while(loop_counter--);
 
