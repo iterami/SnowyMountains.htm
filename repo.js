@@ -7,8 +7,8 @@ function repo_drawlogic(){
     canvas.fillRect(
       0,
       0,
-      canvas_properties['width'],
-      canvas_properties['height-half']
+      canvas_properties.width,
+      canvas_properties.height_half
     );
 
     let loop_counter = 2;
@@ -17,39 +17,39 @@ function repo_drawlogic(){
         vertices.push([
           'moveTo',
           [
-            canvas_properties['width-half'],
-            math['mountain-left-x'],
-            math['mountain-right-x'],
+            canvas_properties.width_half,
+            math.mountain_left_x,
+            math.mountain_right_x,
           ][loop_counter],
           [
-            math['mountain-middle-y'],
-            math['mountain-left-y'],
-            math['mountain-right-y'],
+            math.mountain_middle_y,
+            math.mountain_left_y,
+            math.mountain_right_y,
           ][loop_counter],
         ],[
           'lineTo',
           [
-            canvas_properties['width-half'],
-            math['mountain-left-x'],
-            math['mountain-right-x'],
+            canvas_properties.width_half,
+            math.mountain_left_x,
+            math.mountain_right_x,
           ][loop_counter] + [
-            math['mountain-right-width'],
-            math['mountain-left-width'],
-            math['mountain-right-width'],
+            math.mountain_right_width,
+            math.mountain_left_width,
+            math.mountain_right_width,
           ][loop_counter],
-          canvas_properties['height-half'],
+          canvas_properties.height_half,
         ],[
           'lineTo',
           [
-            canvas_properties['width-half'],
+            canvas_properties.width_half,
             0,
-            math['mountain-right-x'],
+            math.mountain_right_x,
           ][loop_counter] - [
-            math['mountain-left-width'],
-            math['mountain-left-width'],
-            math['mountain-right-width'],
+            math.mountain_left_width,
+            math.mountain_left_width,
+            math.mountain_right_width,
           ][loop_counter],
-          canvas_properties['height-half'],
+          canvas_properties.height_half,
         ]);
     }while(loop_counter--);
     canvas_draw_path({
@@ -66,10 +66,10 @@ function repo_drawlogic(){
     });
     for(const tree in trees){
         canvas.fillRect(
-          canvas_properties['width'] * trees[tree][0] - math['stump-width'] * 2,
+          canvas_properties.width * trees[tree][0] - math.stump_width * 2,
           trees[tree][1],
-          math['stump-width'] * trees[tree][2],
-          math['stump-width'] * trees[tree][2]
+          math.stump_width * trees[tree][2],
+          math.stump_width * trees[tree][2]
         );
     }
 
@@ -82,17 +82,17 @@ function repo_drawlogic(){
           'vertices': [
             [
               'moveTo',
-              canvas_properties['width'] * trees[loop_counter][0],
-              trees[loop_counter][1] - math['tree-height'] * trees[loop_counter][2],
+              canvas_properties.width * trees[loop_counter][0],
+              trees[loop_counter][1] - math.tree_height * trees[loop_counter][2],
             ],
             [
               'lineTo',
-              canvas_properties['width'] * trees[loop_counter][0] + math['tree-width'] * trees[loop_counter][2],
+              canvas_properties.width * trees[loop_counter][0] + math.tree_width * trees[loop_counter][2],
               trees[loop_counter][1] + 1,
             ],
             [
               'lineTo',
-              canvas_properties['width'] * trees[loop_counter][0] - math['tree-width'] * trees[loop_counter][2],
+              canvas_properties.width * trees[loop_counter][0] - math.tree_width * trees[loop_counter][2],
               trees[loop_counter][1] + 1,
             ],
           ],
@@ -108,10 +108,10 @@ function repo_drawlogic(){
       ],
       'todo': function(entity){
           canvas.fillRect(
-            entity['x'],
-            entity['y'],
-            entity['size'],
-            entity['size']
+            entity.x,
+            entity.y,
+            entity.size,
+            entity.size
           );
       },
     });
@@ -132,7 +132,7 @@ function repo_init(){
     });
     canvas_init();
 
-    canvas_properties['clearColor'] = '#fff';
+    canvas_properties.clearColor = '#fff';
 }
 
 function repo_logic(){
@@ -142,7 +142,7 @@ function repo_logic(){
           'properties': {
             'size': core_random_integer(2) + 3,
             'speed': core_random_integer(4),
-            'x': core_random_integer(canvas_properties['width']),
+            'x': core_random_integer(canvas_properties.width),
           },
           'types': [
             'snowflake',
@@ -155,13 +155,13 @@ function repo_logic(){
         'snowflake',
       ],
       'todo': function(entity){
-          entity['x'] += Math.random() * 2 - 1;
-          entity['y'] += Math.random() * 4 + entity['speed'];
+          entity.x += Math.random() * 2 - 1;
+          entity.y += Math.random() * 4 + entity.speed;
 
-          if(entity['y'] > canvas_properties['height']){
+          if(entity.y > canvas_properties.height){
               entity_remove({
                 'entities': [
-                  entity['id'],
+                  entity.id,
                 ],
               });
           }
@@ -171,37 +171,36 @@ function repo_logic(){
 
 function repo_resizelogic(){
     math = {
-      'mountain-left-width': canvas_properties['width-half'] * .7,
-      'mountain-left-x': canvas_properties['width-half'] * .4,
-      'mountain-left-y': canvas_properties['height-half'] * .25,
-      'mountain-middle-y': canvas_properties['height-half'] * .4,
-      'mountain-right-width': canvas_properties['width-half'] * .9,
-      'mountain-right-x': canvas_properties['width-half'] * 1.6,
-      'mountain-right-y': canvas_properties['height-half'] * .3,
-      'stump-width': Math.max(
-        canvas_properties['width'] / 100,
+      'mountain_left_width': canvas_properties.width_half * .7,
+      'mountain_left_x': canvas_properties.width_half * .4,
+      'mountain_left_y': canvas_properties.height_half * .25,
+      'mountain_middle_y': canvas_properties.height_half * .4,
+      'mountain_right_width': canvas_properties.width_half * .9,
+      'mountain_right_x': canvas_properties.width_half * 1.6,
+      'mountain_right_y': canvas_properties.height_half * .3,
+      'stump_width': Math.max(
+        canvas_properties.width / 100,
         10
       ),
-      'tree-height': canvas_properties['height'] / 7,
-      'tree-width': Math.max(
-        canvas_properties['width'] / 45,
+      'tree_height': canvas_properties.height / 7,
+      'tree_width': Math.max(
+        canvas_properties.width / 45,
         25
       ),
-      'wreathe-red': canvas_properties['height'] / 100,
     };
 
     core_object_reset(trees);
 
-    const tree_y_offset = canvas_properties['height-half'] * .75;
+    const tree_y_offset = canvas_properties.height_half * .75;
 
-    const treecount = Math.floor(canvas_properties['width-half'] / 2);
+    const treecount = Math.floor(canvas_properties.width_half / 2);
     let loop_counter = treecount;
     do{
-        const tree_y = core_random_integer(canvas_properties['height-half'] * (loop_counter > treecount * .7 ? 1.1 : .7)) + tree_y_offset;
+        const tree_y = core_random_integer(canvas_properties.height_half * (loop_counter > treecount * .7 ? 1.1 : .7)) + tree_y_offset;
         trees.push([
           Math.random(),
           tree_y,
-          -(canvas_properties['height-half'] / 2 - tree_y) / (canvas_properties['height-half'] * .35),
+          -(canvas_properties.height_half / 2 - tree_y) / (canvas_properties.height_half * .35),
           '#' + core_random_integer(5) + (core_random_integer(5) + 4) + core_random_integer(5),
         ]);
     }while(loop_counter--);
@@ -215,10 +214,10 @@ function repo_resizelogic(){
 
     gradient_ground = canvas_gradient({
       'args': [
-        canvas_properties['width-half'],
-        math['mountain-middle-y'],
-        canvas_properties['width-half'],
-        canvas_properties['height-half'] * .65,
+        canvas_properties.width_half,
+        math.mountain_middle_y,
+        canvas_properties.width_half,
+        canvas_properties.height_half * .65,
       ],
       'stops': [
         {
@@ -232,10 +231,10 @@ function repo_resizelogic(){
     });
     gradient_sky = canvas_gradient({
       'args': [
-        canvas_properties['width-half'],
+        canvas_properties.width_half,
         10,
-        canvas_properties['width-half'],
-        canvas_properties['height-half'],
+        canvas_properties.width_half,
+        canvas_properties.height_half,
       ],
       'stops': [
         {
