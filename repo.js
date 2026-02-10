@@ -1,5 +1,27 @@
 'use strict';
 
+function draw_snowflake(entity){
+    canvas.fillRect(
+      entity.x,
+      entity.y,
+      entity.size,
+      entity.size
+    );
+}
+
+function move_snowflake(entity){
+    entity.x += Math.random() * 2 - 1;
+    entity.y += Math.random() * 4 + entity.speed;
+
+    if(entity.y > canvas_properties.height){
+        entity_remove({
+          'entities': [
+            entity.id,
+          ],
+        });
+    }
+}
+
 function repo_drawlogic(){
     canvas_setproperties({
       'fillStyle': gradient_sky,
@@ -106,14 +128,7 @@ function repo_drawlogic(){
       'groups': [
         'snowflake',
       ],
-      'todo': function(entity){
-          canvas.fillRect(
-            entity.x,
-            entity.y,
-            entity.size,
-            entity.size
-          );
-      },
+      'todo': draw_snowflake,
     });
 }
 
@@ -154,18 +169,7 @@ function repo_logic(){
       'groups': [
         'snowflake',
       ],
-      'todo': function(entity){
-          entity.x += Math.random() * 2 - 1;
-          entity.y += Math.random() * 4 + entity.speed;
-
-          if(entity.y > canvas_properties.height){
-              entity_remove({
-                'entities': [
-                  entity.id,
-                ],
-              });
-          }
-      },
+      'todo': move_snowflake,
     });
 }
 
