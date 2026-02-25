@@ -33,32 +33,31 @@ function repo_drawlogic(){
       canvas_properties.height_half
     );
 
-    let loop_counter = 2;
     const vertices = [];
-    do{
+    for(let i = 0; i < 3; i++){
         vertices.push([
           'moveTo',
           [
             canvas_properties.width_half,
             math.mountain_left_x,
             math.mountain_right_x,
-          ][loop_counter],
+          ][i],
           [
             math.mountain_middle_y,
             math.mountain_left_y,
             math.mountain_right_y,
-          ][loop_counter],
+          ][i],
         ],[
           'lineTo',
           [
             canvas_properties.width_half,
             math.mountain_left_x,
             math.mountain_right_x,
-          ][loop_counter] + [
+          ][i] + [
             math.mountain_right_width,
             math.mountain_left_width,
             math.mountain_right_width,
-          ][loop_counter],
+          ][i],
           canvas_properties.height_half,
         ],[
           'lineTo',
@@ -66,14 +65,14 @@ function repo_drawlogic(){
             canvas_properties.width_half,
             0,
             math.mountain_right_x,
-          ][loop_counter] - [
+          ][i] - [
             math.mountain_left_width,
             math.mountain_left_width,
             math.mountain_right_width,
-          ][loop_counter],
+          ][i],
           canvas_properties.height_half,
         ]);
-    }while(loop_counter--);
+    }
     canvas_draw_path({
       'vertices': vertices,
     });
@@ -86,40 +85,39 @@ function repo_drawlogic(){
     canvas_setproperties({
       'fillStyle': '#930',
     });
-    for(const tree in trees){
+    for(const tree of trees){
         canvas.fillRect(
-          canvas_properties.width * trees[tree][0] - math.stump_width * 2,
-          trees[tree][1],
-          math.stump_width * trees[tree][2],
-          math.stump_width * trees[tree][2]
+          canvas_properties.width * tree[0] - math.stump_width * 2,
+          tree[1],
+          math.stump_width * tree[2],
+          math.stump_width * tree[2]
         );
     }
 
-    loop_counter = trees.length - 1;
-    do{
+    for(let i = 0; i < trees.length; i++){
         canvas_draw_path({
           'properties': {
-            'fillStyle': trees[loop_counter][3],
+            'fillStyle': trees[i][3],
           },
           'vertices': [
             [
               'moveTo',
-              canvas_properties.width * trees[loop_counter][0],
-              trees[loop_counter][1] - math.tree_height * trees[loop_counter][2],
+              canvas_properties.width * trees[i][0],
+              trees[i][1] - math.tree_height * trees[i][2],
             ],
             [
               'lineTo',
-              canvas_properties.width * trees[loop_counter][0] + math.tree_width * trees[loop_counter][2],
-              trees[loop_counter][1] + 1,
+              canvas_properties.width * trees[i][0] + math.tree_width * trees[i][2],
+              trees[i][1] + 1,
             ],
             [
               'lineTo',
-              canvas_properties.width * trees[loop_counter][0] - math.tree_width * trees[loop_counter][2],
-              trees[loop_counter][1] + 1,
+              canvas_properties.width * trees[i][0] - math.tree_width * trees[i][2],
+              trees[i][1] + 1,
             ],
           ],
         });
-    }while(loop_counter--);
+    }
 
     canvas_setproperties({
       'fillStyle': '#fff',
@@ -151,8 +149,7 @@ function repo_init(){
 }
 
 function repo_logic(){
-    let loop_counter = 1;
-    do{
+    for(let i = 0; i < 2; i++){
         entity_create({
           'properties': {
             'size': core_random_integer(2) + 3,
@@ -163,7 +160,7 @@ function repo_logic(){
             'snowflake',
           ],
         });
-    }while(loop_counter--);
+    }
 
     entity_group_modify({
       'groups': [
@@ -194,26 +191,21 @@ function repo_resizelogic(){
     };
 
     core_object_reset(trees);
-
     const tree_y_offset = canvas_properties.height_half * .75;
-
     const treecount = Math.floor(canvas_properties.width_half / 2);
-    let loop_counter = treecount;
-    do{
-        const tree_y = core_random_integer(canvas_properties.height_half * (loop_counter > treecount * .7 ? 1.1 : .7)) + tree_y_offset;
+    for(let i = 0; i < treecount; i++){
+        const tree_y = core_random_integer(canvas_properties.height_half * (i > treecount * .7 ? 1.1 : .7)) + tree_y_offset;
         trees.push([
           Math.random(),
           tree_y,
           -(canvas_properties.height_half / 2 - tree_y) / (canvas_properties.height_half * .35),
           '#' + core_random_integer(5) + (core_random_integer(5) + 4) + core_random_integer(5),
         ]);
-    }while(loop_counter--);
-
+    }
     core_sort_property({
       'array': trees,
       'clone': false,
       'property': 2,
-      'reverse': true,
     });
 
     gradient_ground = canvas_gradient({
