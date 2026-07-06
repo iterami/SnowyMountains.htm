@@ -94,26 +94,26 @@ function repo_drawlogic(){
         );
     }
 
-    for(let i = 0; i < trees.length; i++){
+    for(const tree of trees){
         canvas_draw_path({
           'properties': {
-            'fillStyle': trees[i][3],
+            'fillStyle': tree[3],
           },
           'vertices': [
             [
               'moveTo',
-              canvas_properties.width * trees[i][0],
-              trees[i][1] - math.tree_height * trees[i][2],
+              canvas_properties.width * tree[0],
+              tree[1] - math.tree_height * tree[2],
             ],
             [
               'lineTo',
-              canvas_properties.width * trees[i][0] + math.tree_width * trees[i][2],
-              trees[i][1] + 1,
+              canvas_properties.width * tree[0] + math.tree_width * tree[2],
+              tree[1] + 1,
             ],
             [
               'lineTo',
-              canvas_properties.width * trees[i][0] - math.tree_width * trees[i][2],
-              trees[i][1] + 1,
+              canvas_properties.width * tree[0] - math.tree_width * tree[2],
+              tree[1] + 1,
             ],
           ],
         });
